@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">SilmeBagCalculator</string>
+    <string name="non_woven_bag">Non-woven Bag</string>
+    <string name="jute_bag">Jute Bag</string>
+    <string name="cotton_bag">Cotton Bag</string>
+    <string name="placeholder_search">Search</string>
+
+    <!--extra-->
+    <string name="app_logo">App Logo</string>
+    <string name="the_tolet">Silme Bag Industries</string>
+    <string name="find_house">Choose Your Quality, Comfort, Style.</string>
+    <string name="login">Login</string>
+</resources>
