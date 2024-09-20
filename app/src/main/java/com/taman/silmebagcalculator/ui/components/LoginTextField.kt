@@ -5,10 +5,12 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Error
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,6 +30,7 @@ fun LoginTextField(
     text: String,
     onTextChange: (String) -> Unit,
     isPassword: Boolean = false,
+    hasError: Boolean = false,
     modifier: Modifier = Modifier
 ) {
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
@@ -51,7 +54,15 @@ fun LoginTextField(
                     Icon(imageVector = image, contentDescription = if (passwordVisible) "Hide password" else "Show password")
                 }
             }
+            if (hasError) {
+                Icon(
+                    imageVector = Icons.Default.Error, // Replace with your error icon
+                    contentDescription = "Error",
+                    tint = MaterialTheme.colorScheme.error // Adjust color to match your theme
+                )
+            }
         },
+        isError = hasError,
         modifier = modifier.fillMaxWidth()
     )
 }

@@ -1,7 +1,8 @@
 package com.taman.silmebagcalculator.ui.screens.login
 
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,13 +12,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -26,6 +31,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
@@ -35,27 +41,29 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.taman.silmebagcalculator.R
 import com.taman.silmebagcalculator.ui.components.LoginTextField
-import com.taman.silmebagcalculator.ui.theme.Black
 import com.taman.silmebagcalculator.ui.theme.Roboto
 import com.taman.silmebagcalculator.ui.theme.SilmeBagCalculatorTheme
 import com.taman.silmebagcalculator.utils.DashboardScreen
-import com.taman.silmebagcalculator.utils.LoginScreen
 
 @Preview(showBackground = true)
 @Composable
 fun LoginScreenPreview(){
     SilmeBagCalculatorTheme {
         val navController = rememberNavController()
-        LoginScreen(navController)
+        LoginScreen(navController = navController)
     }
 }
 
 @Composable
-fun LoginScreen(navController: NavHostController) {
+fun LoginScreen(
+    viewModel: LoginScreenViewModel = viewModel(),
+    navController: NavHostController
+) {
     Surface {
         Column(modifier = Modifier.fillMaxSize()) {
             TopSection()
@@ -66,9 +74,8 @@ fun LoginScreen(navController: NavHostController) {
                     .fillMaxSize()
                     .padding(horizontal = 30.dp)
             ) {
-                LoginSection(navController)
+                LoginSection(viewModel,navController)
 
-                val uiColor = if (isSystemInDarkTheme()) Color.White else Black
                 Box(modifier = Modifier
                     .fillMaxHeight(fraction = 0.8f)
                     .fillMaxWidth(),
@@ -100,12 +107,25 @@ fun LoginScreen(navController: NavHostController) {
 
 
 @Composable
-private fun LoginSection(navController: NavHostController) {
+private fun LoginSection(
+    viewModel: LoginScreenViewModel,
+    navController: NavHostController
+) {
 
     var usernameEmail by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var emailError by remember { mutableStateOf(false) }
 
-    LoginTextField(label = "Username/Email", text = usernameEmail, onTextChange = {usernameEmail = it})
+    val loginResult by viewModel.loginResult.collectAsState()
+    val loading by viewModel.loading.collectAsState()
+    val context = LocalContext.current
+
+    LoginTextField(
+        label = "Username/Email",
+        text = usernameEmail,
+        onTextChange = {usernameEmail = it},
+        hasError = emailError
+    )
     Spacer(modifier = Modifier.height(15.dp))
     LoginTextField(label = "Password", text = password, onTextChange = {password = it}, isPassword = true)
     Spacer(modifier = Modifier.height(20.dp))
@@ -114,28 +134,52 @@ private fun LoginSection(navController: NavHostController) {
         modifier = Modifier
             .fillMaxWidth()
             .height(40.dp),
-        onClick = {
+        onClick = onClick@{
 
-            println("Username/Email: $usernameEmail")
-            println("Password: $password")
+            Log.d("Rony2", "LoginSection: $usernameEmail")
+            Log.d("Rony2", "LoginSection: $password")
 
-            navController.navigate(DashboardScreen){
-                popUpTo(LoginScreen) {inclusive = true}
+            if (!viewModel.isValidEmail(usernameEmail)) {
+                emailError = true
+                return@onClick
+            } else {
+                emailError = false
             }
+
+            viewModel.login(usernameEmail,password)
         },
         shape = RoundedCornerShape(size = 4.dp)
     ) {
-        Text(
-            text = "Log in",
-            style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Medium)
-        )
+        if (loading) {
+            CircularProgressIndicator(
+                modifier = Modifier.size(24.dp),
+                color = MaterialTheme.colorScheme.onPrimary
+            )
+        } else {
+            Text(
+                text = "Log in",
+                style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Medium)
+            )
+        }
+    }
+
+    LaunchedEffect(loginResult) {
+        when {
+            loginResult?.success == true -> {
+                navController.navigate(DashboardScreen) {
+                    popUpTo("login") { inclusive = true }
+                }
+            }
+            loginResult?.success == false -> {
+                Toast.makeText(context, loginResult?.message, Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }
 
 
 @Composable
 private fun TopSection() {
-    val uiColor = if (isSystemInDarkTheme()) Color.White else Black
 
     Box(
         contentAlignment = Alignment.TopCenter
