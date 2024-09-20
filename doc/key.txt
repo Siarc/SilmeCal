@@ -1,0 +1,3 @@
+key store passowrd = @Silme1
+key alias = silme
+key passowrd = @Silme1
