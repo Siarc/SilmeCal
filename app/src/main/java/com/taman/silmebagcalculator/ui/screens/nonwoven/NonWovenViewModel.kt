@@ -1,5 +1,6 @@
 package com.taman.silmebagcalculator.ui.screens.nonwoven
 
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.taman.silmebagcalculator.models.NonwovenUnitLocals
@@ -91,6 +92,8 @@ class NonWovenViewModel: ViewModel() {
         val additionalCostValue = additionalCost.value.toDoubleOrNull() ?: 0.0
         val profitValue = profit.value.toDoubleOrNull() ?: 0.0
 
+        Log.d("Rony3", "selectedBagType: ${selectedBagType.value}")
+
         val unitLocals = getNonwovenUnitLocals(
             selectedBagType.value,
             heightValue,
@@ -105,15 +108,17 @@ class NonWovenViewModel: ViewModel() {
 
         val printColorValue = getColorValue()
 
-        val nonwovenBagFabricPricePerUnit = unitLocals.fabricSqInch * 0.00067 * (fabricPriceValue / 1000) * gsmValue
-        val wastage = nonwovenBagFabricPricePerUnit * (2 / 100)
-        val blockCost = ((heightValue - 4) * (widthValue - 3) * 10) / quantityValue
+        val nonwovenBagFabricPricePerUnit = unitLocals.fabricSqInch * 0.00067 * (fabricPriceValue / 1000.0) * gsmValue
+        val twoPercent = 2.0/100.0
+        val wastage = nonwovenBagFabricPricePerUnit * twoPercent
+        val blockCost = ((heightValue - 4.0) * (widthValue - 3.0) * 10.0) / quantityValue
         val gussetCost = unitLocals.gussetPrint
         val zipperCost = unitLocals.zipper
+        val makingTypeCost = unitLocals.makingType
 
         val deliveryCost = if (deliveryFeeValue > 0) deliveryFeeValue / quantityValue else 0.0
 
-        val totalCost = nonwovenBagFabricPricePerUnit + blockCost + printColorValue +gussetCost + zipperCost + additionalCostValue + profitValue + deliveryCost + wastage
+        val totalCost = nonwovenBagFabricPricePerUnit + makingTypeCost + blockCost + printColorValue +gussetCost + zipperCost + additionalCostValue + profitValue + deliveryCost + wastage
 
         if (totalCost < 0 || totalCost.isNaN() || totalCost.isInfinite()) {
             return
@@ -124,6 +129,24 @@ class NonWovenViewModel: ViewModel() {
         } else {
             String.format("%.4f", totalCost).trimEnd('0').trimEnd('.') // Up to 4 decimal places, remove trailing zeros and decimal point if not needed
         }
+
+        Log.d("Rony2", "calculateUnitPrice heming: ${unitLocals.heming}")
+        Log.d("Rony2", "calculateUnitPrice handleFabric: ${unitLocals.handleFabric}")
+        Log.d("Rony2", "calculateUnitPrice runner: ${unitLocals.runner}")
+        Log.d("Rony2", "calculateUnitPrice gussetPrint: ${unitLocals.gussetPrint}")
+        Log.d("Rony2", "calculateUnitPrice piping: ${unitLocals.piping}")
+        Log.d("Rony2", "calculateUnitPrice zipper: ${unitLocals.zipper}")
+        Log.d("Rony2", "fabricSqInch: ${unitLocals.fabricSqInch}")
+        Log.d("Rony2", "printColorValue: $printColorValue")
+        Log.d("Rony2", "nonwovenBagFabricPricePerUnit: $nonwovenBagFabricPricePerUnit")
+        Log.d("Rony2", "twoPercent: $twoPercent")
+        Log.d("Rony2", "wastage: $wastage")
+        Log.d("Rony2", "blockCost: $blockCost")
+        Log.d("Rony2", "gussetCost: $gussetCost")
+        Log.d("Rony2", "zipperCost: $zipperCost")
+        Log.d("Rony2", "deliveryCost: $deliveryCost")
+        Log.d("Rony2", "totalCost: $totalCost")
+        Log.d("Rony2", "formattedTotalCost: $formattedTotalCost")
 
         unitPrice.value = formattedTotalCost
     }
@@ -142,48 +165,57 @@ class NonWovenViewModel: ViewModel() {
         val unitLocals = NonwovenUnitLocals()
 
         when (nonwovenBagType) {
-            "Select Bag Type" -> return unitLocals
+            "Select Bag Type" -> {
+                Log.d("Rony3", "working with : Select Bag Type ")
+                return unitLocals
+            }
             "Handle Bag" -> {
+                Log.d("Rony3", "working with : Handle Bag ")
                 val heming = 1.5
                 val handleFabric = 70.0
+                unitLocals.makingType = 0.80
                 unitLocals.heming = heming
                 unitLocals.handleFabric = handleFabric
                 unitLocals.fabricSqInch = ((height + heming) * width * 2) + (gusset * width) + handleFabric
             }
             "D Cut Bag" -> {
+                Log.d("Rony3", "working with : D Cut Bag ")
                 val heming = 2.5
+                unitLocals.makingType = 0.50
                 unitLocals.heming = heming
-                unitLocals.fabricSqInch = ((height + heming) * width * 2) + (gusset * width)
+                unitLocals.fabricSqInch = ((height + heming) * width * 2.0) + (gusset * width)
             }
             "Sewing Bag" -> {
+                Log.d("Rony3", "working with : Sewing Bag ")
                 val heming = 1.5
                 val handleFabric = 70.0
                 val runner = 1.0
-                val piping = (height * 4) + (width * 2) + 10
+                val piping = (height * 4.0) + (width * 2.0) + 10.0
+                unitLocals.makingType = 4.0
                 unitLocals.heming = heming
                 unitLocals.handleFabric = handleFabric
                 unitLocals.runner = runner
                 unitLocals.piping = piping
 
                 if (allowGussetPrint) {
-                    unitLocals.gussetPrint = 1 + ((height - 3) * (gusset - 1) * 10) / quantity
+                    unitLocals.gussetPrint = 1.0 + ((height - 3.0) * (gusset - 1.0) * 10.0) / quantity
                 }
-
                 if (allowZipper) {
                     unitLocals.zipper = runner +
-                            ((width + 3) * 0.15) +
-                            3 +
-                            ((width + 1) * height) * 0.00067 * gsm * (fabricPrice / 1000)
+                            ((width + 3.0) * 0.15) +
+                            3.0 +
+                            ((width + 1.0) * height) * 0.00067 * gsm * (fabricPrice / 1000.0)
                 }
-
-                unitLocals.fabricSqInch = ((height + heming) * width * 2) +
-                        (gusset * ((height + heming) * 2 + width)) +
+                unitLocals.fabricSqInch = ((height + heming) * width * 2.0) +
+                        (gusset * ((height + heming) * 2.0 + width)) +
                         handleFabric +
                         piping
             }
             "Autobox Handle Bag" -> {
+                Log.d("Rony3", "working with : Autobox Handle Bag ")
                 val heming = 1.5
                 val handleFabric = 70.0
+                unitLocals.makingType = 2.0
                 unitLocals.heming = heming
                 unitLocals.handleFabric = handleFabric
                 unitLocals.fabricSqInch = ((height + heming) * width * 2) +
@@ -191,12 +223,17 @@ class NonWovenViewModel: ViewModel() {
                         handleFabric
             }
             "Autobox D Cut Bag" -> {
+                Log.d("Rony3", "working with : Autobox D Cut Bag ")
                 val heming = 2.5
+                unitLocals.makingType = 1.7
                 unitLocals.heming = heming
-                unitLocals.fabricSqInch = ((height + heming) * width * 2) +
-                        ((gusset + 0.75) * ((height + heming) * 2 + width))
+                unitLocals.fabricSqInch = ((height + heming) * width * 2.0) +
+                        ((gusset + 0.75) * ((height + heming) * 2.0 + width))
             }
-            else -> return unitLocals
+            else -> {
+                Log.d("Rony3", "working with : else ")
+                return unitLocals
+            }
         }
 
         return unitLocals
@@ -263,6 +300,7 @@ class NonWovenViewModel: ViewModel() {
     // Update bag type
     fun updateSelectedBagType(value : String) {
         selectedBagType.value = value
+        calculateUnitPrice()
     }
 
     // Delivery Option visibility updates

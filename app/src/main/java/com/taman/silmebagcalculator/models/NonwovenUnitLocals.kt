@@ -7,5 +7,6 @@ data class NonwovenUnitLocals(
     var gussetPrint: Double = 0.0,
     var piping: Double = 0.0,
     var zipper: Double = 0.0,
-    var fabricSqInch: Double = 0.0
+    var fabricSqInch: Double = 0.0,
+    var makingType: Double = 0.0
 )
