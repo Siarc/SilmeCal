@@ -68,8 +68,10 @@ class NonWovenViewModel @Inject constructor(
     private val _autoboxDCutBagMakingType = MutableStateFlow(0.0)
     val autoboxDCutBagMakingType: StateFlow<Double> = _autoboxDCutBagMakingType.asStateFlow()
 
-
     // MutableStates for visibility
+    var isBottomSheetOpen = mutableStateOf(false)
+        private set
+
     var showSewingBagOptions = mutableStateOf(false)
         private set
 
@@ -340,8 +342,12 @@ class NonWovenViewModel @Inject constructor(
         return unitLocals
     }
 
-    // Functions to update each value and recalculate unit price
+    // Function to update bottom sheet visibility
+    fun updateBottomSheetState(value: Boolean){
+        isBottomSheetOpen.value = value
+    }
 
+    // Functions to update each value and recalculate unit price
     fun updateFabricPrice(newPrice: String) {
         fabricPrice.value = newPrice
         calculateUnitPrice()  // Recalculate when fabric price is updated
