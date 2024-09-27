@@ -28,7 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.taman.silmebagcalculator.ui.components.BackgroundDroplet
@@ -51,7 +51,7 @@ fun NonWovenScreenPreview(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NonWovenScreen(
-    viewModel: NonWovenViewModel = viewModel(), navController: NavHostController
+    viewModel: NonWovenViewModel = hiltViewModel(), navController: NavHostController
 ) {
     // Observing the state variables from the ViewModel
     val fabricPrice by viewModel.fabricPrice

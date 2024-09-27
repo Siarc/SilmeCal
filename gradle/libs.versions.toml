@@ -5,7 +5,8 @@ datastorePreferences = "1.1.1"
 firebaseBom = "33.3.0"
 hiltAndroid = "2.51.1"
 hiltAndroidCompiler = "2.51.1"
-kotlin = "2.0.0"
+hiltCompiler = "1.2.0"
+kotlin = "2.0.20"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -22,10 +23,12 @@ serialization = "1.6.3"
 googleServices= "4.4.2"
 googleCrashlytics= "3.0.2"
 daggerHiltAndroid= "2.51.1"
+devtoolsKsp= "2.0.20-1.0.24"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
+androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltCompiler" }
 androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycleRuntimeKtx" }
 androidx-material = { module = "androidx.compose.material:material", version.ref = "materialIconsExtended" }
 androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
@@ -61,4 +64,5 @@ kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "ko
 google-services = { id = "com.google.gms.google-services", version.ref = "googleServices" }
 google-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "googleCrashlytics" }
 dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "daggerHiltAndroid" }
+devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "devtoolsKsp" }
 

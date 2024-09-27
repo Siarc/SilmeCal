@@ -14,7 +14,9 @@ import com.taman.silmebagcalculator.ui.theme.SilmeBagCalculatorTheme
 import com.taman.silmebagcalculator.utils.LoginScreen
 import com.taman.silmebagcalculator.utils.DashboardScreen
 import com.taman.silmebagcalculator.utils.NonWovenScreen
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
