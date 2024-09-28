@@ -4,6 +4,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.taman.silmebagcalculator.datastore.NonWovenDataStore
+import com.taman.silmebagcalculator.models.NonWovenSavedData
 import com.taman.silmebagcalculator.models.NonwovenUnitLocals
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,50 +24,50 @@ class NonWovenViewModel @Inject constructor(
     }
 
     // Flows to observe data from DataStore
-    private val _handleBagHemming = MutableStateFlow(0.0)
-    val handleBagHemming: StateFlow<Double> = _handleBagHemming.asStateFlow()
+    private val _handleBagHemming = MutableStateFlow("")
+    val handleBagHemming: StateFlow<String> = _handleBagHemming.asStateFlow()
 
-    private val _handleBagHandleFabric = MutableStateFlow(0.0)
-    val handleBagHandleFabric: StateFlow<Double> = _handleBagHandleFabric.asStateFlow()
+    private val _handleBagHandleFabric = MutableStateFlow("")
+    val handleBagHandleFabric: StateFlow<String> = _handleBagHandleFabric.asStateFlow()
 
-    private val _handleBagMakingType = MutableStateFlow(0.0)
-    val handleBagMakingType: StateFlow<Double> = _handleBagMakingType.asStateFlow()
+    private val _handleBagMakingType = MutableStateFlow("")
+    val handleBagMakingType: StateFlow<String> = _handleBagMakingType.asStateFlow()
 
-    private val _dCutBagHemming = MutableStateFlow(0.0)
-    val dCutBagHemming: StateFlow<Double> = _dCutBagHemming.asStateFlow()
+    private val _dCutBagHemming = MutableStateFlow("")
+    val dCutBagHemming: StateFlow<String> = _dCutBagHemming.asStateFlow()
 
-    private val _dCutBagMakingType = MutableStateFlow(0.0)
-    val dCutBagMakingType: StateFlow<Double> = _dCutBagMakingType.asStateFlow()
+    private val _dCutBagMakingType = MutableStateFlow("")
+    val dCutBagMakingType: StateFlow<String> = _dCutBagMakingType.asStateFlow()
 
-    private val _sewingBagHemming = MutableStateFlow(0.0)
-    val sewingBagHemming: StateFlow<Double> = _sewingBagHemming.asStateFlow()
+    private val _sewingBagHemming = MutableStateFlow("")
+    val sewingBagHemming: StateFlow<String> = _sewingBagHemming.asStateFlow()
 
-    private val _sewingBagHandleFabric = MutableStateFlow(0.0)
-    val sewingBagHandleFabric: StateFlow<Double> = _sewingBagHandleFabric.asStateFlow()
+    private val _sewingBagHandleFabric = MutableStateFlow("")
+    val sewingBagHandleFabric: StateFlow<String> = _sewingBagHandleFabric.asStateFlow()
 
-    private val _sewingBagRunner = MutableStateFlow(0.0)
-    val sewingBagRunner: StateFlow<Double> = _sewingBagRunner.asStateFlow()
+    private val _sewingBagRunner = MutableStateFlow("")
+    val sewingBagRunner: StateFlow<String> = _sewingBagRunner.asStateFlow()
 
-    private val _sewingBagPipingExtraAddition = MutableStateFlow(0.0)
-    val sewingBagPipingExtraAddition: StateFlow<Double> = _sewingBagPipingExtraAddition.asStateFlow()
+    private val _sewingBagPipingExtraAddition = MutableStateFlow("")
+    val sewingBagPipingExtraAddition: StateFlow<String> = _sewingBagPipingExtraAddition.asStateFlow()
 
-    private val _sewingBagMakingType = MutableStateFlow(0.0)
-    val sewingBagMakingType: StateFlow<Double> = _sewingBagMakingType.asStateFlow()
+    private val _sewingBagMakingType = MutableStateFlow("")
+    val sewingBagMakingType: StateFlow<String> = _sewingBagMakingType.asStateFlow()
 
-    private val _autoboxHandleBagHemming = MutableStateFlow(0.0)
-    val autoboxHandleBagHemming: StateFlow<Double> = _autoboxHandleBagHemming.asStateFlow()
+    private val _autoboxHandleBagHemming = MutableStateFlow("")
+    val autoboxHandleBagHemming: StateFlow<String> = _autoboxHandleBagHemming.asStateFlow()
 
-    private val _autoboxHandleBagHandleFabric = MutableStateFlow(0.0)
-    val autoboxHandleBagHandleFabric: StateFlow<Double> = _autoboxHandleBagHandleFabric.asStateFlow()
+    private val _autoboxHandleBagHandleFabric = MutableStateFlow("")
+    val autoboxHandleBagHandleFabric: StateFlow<String> = _autoboxHandleBagHandleFabric.asStateFlow()
 
-    private val _autoboxHandleBagMakingType = MutableStateFlow(0.0)
-    val autoboxHandleBagMakingType: StateFlow<Double> = _autoboxHandleBagMakingType.asStateFlow()
+    private val _autoboxHandleBagMakingType = MutableStateFlow("")
+    val autoboxHandleBagMakingType: StateFlow<String> = _autoboxHandleBagMakingType.asStateFlow()
 
-    private val _autoboxDCutBagHemming = MutableStateFlow(0.0)
-    val autoboxDCutBagHemming: StateFlow<Double> = _autoboxDCutBagHemming.asStateFlow()
+    private val _autoboxDCutBagHemming = MutableStateFlow("")
+    val autoboxDCutBagHemming: StateFlow<String> = _autoboxDCutBagHemming.asStateFlow()
 
-    private val _autoboxDCutBagMakingType = MutableStateFlow(0.0)
-    val autoboxDCutBagMakingType: StateFlow<Double> = _autoboxDCutBagMakingType.asStateFlow()
+    private val _autoboxDCutBagMakingType = MutableStateFlow("")
+    val autoboxDCutBagMakingType: StateFlow<String> = _autoboxDCutBagMakingType.asStateFlow()
 
     // MutableStates for visibility
     var isBottomSheetOpen = mutableStateOf(false)
@@ -138,63 +139,63 @@ class NonWovenViewModel @Inject constructor(
     private fun observeData() {
 
         nonWovenDataStore.handleBagHemmingFlow
-            .onEach { _handleBagHemming.value = it }
+            .onEach { it.let { _handleBagHemming.value = it } }
             .launchIn(viewModelScope)
 
         nonWovenDataStore.handleBagHandleFabricFlow
-            .onEach { _handleBagHandleFabric.value = it }
+            .onEach { it.let { _handleBagHandleFabric.value = it } }
             .launchIn(viewModelScope)
 
         nonWovenDataStore.handleBagMakingTypeFlow
-            .onEach { _handleBagMakingType.value = it }
+            .onEach { it.let { _handleBagMakingType.value = it } }
             .launchIn(viewModelScope)
 
         nonWovenDataStore.dCutBagHemmingFlow
-            .onEach { _dCutBagHemming.value = it }
+            .onEach { it.let { _dCutBagHemming.value = it } }
             .launchIn(viewModelScope)
 
         nonWovenDataStore.dCutBagMakingTypeFlow
-            .onEach { _dCutBagMakingType.value = it }
+            .onEach { it.let { _dCutBagMakingType.value = it } }
             .launchIn(viewModelScope)
 
         nonWovenDataStore.sewingBagHemmingFlow
-            .onEach { _sewingBagHemming.value = it }
+            .onEach { it.let { _sewingBagHemming.value = it } }
             .launchIn(viewModelScope)
 
         nonWovenDataStore.sewingBagHandleFabricFlow
-            .onEach { _sewingBagHandleFabric.value = it }
+            .onEach { it.let { _sewingBagHandleFabric.value = it } }
             .launchIn(viewModelScope)
 
         nonWovenDataStore.sewingBagRunnerFlow
-            .onEach { _sewingBagRunner.value = it }
+            .onEach { it.let { _sewingBagRunner.value = it } }
             .launchIn(viewModelScope)
 
         nonWovenDataStore.sewingBagPipingExtraAdditionFlow
-            .onEach { _sewingBagPipingExtraAddition.value = it }
+            .onEach { it.let { _sewingBagPipingExtraAddition.value = it } }
             .launchIn(viewModelScope)
 
         nonWovenDataStore.sewingBagMakingTypeFlow
-            .onEach { _sewingBagMakingType.value = it }
+            .onEach { it.let { _sewingBagMakingType.value = it } }
             .launchIn(viewModelScope)
 
         nonWovenDataStore.autoboxHandleBagHemmingFlow
-            .onEach { _autoboxHandleBagHemming.value = it }
+            .onEach { it.let { _autoboxHandleBagHemming.value = it } }
             .launchIn(viewModelScope)
 
         nonWovenDataStore.autoboxHandleBagHandleFabricFlow
-            .onEach { _autoboxHandleBagHandleFabric.value = it }
+            .onEach { it.let { _autoboxHandleBagHandleFabric.value = it } }
             .launchIn(viewModelScope)
 
         nonWovenDataStore.autoboxHandleBagMakingTypeFlow
-            .onEach { _autoboxHandleBagMakingType.value = it }
+            .onEach { it.let { _autoboxHandleBagMakingType.value = it } }
             .launchIn(viewModelScope)
 
         nonWovenDataStore.autoboxDCutBagHemmingFlow
-            .onEach { _autoboxDCutBagHemming.value = it }
+            .onEach { it.let { _autoboxDCutBagHemming.value = it } }
             .launchIn(viewModelScope)
 
         nonWovenDataStore.autoboxDCutBagMakingTypeFlow
-            .onEach { _autoboxDCutBagMakingType.value = it }
+            .onEach { it.let { _autoboxDCutBagMakingType.value = it } }
             .launchIn(viewModelScope)
     }
 
@@ -279,25 +280,25 @@ class NonWovenViewModel @Inject constructor(
                 return unitLocals
             }
             "Handle Bag" -> {
-                val heming = handleBagHemming.value
-                val handleFabric = handleBagHandleFabric.value
-                unitLocals.makingType = handleBagMakingType.value
+                val heming = handleBagHemming.value.toDoubleOrNull() ?: 0.0
+                val handleFabric = handleBagHandleFabric.value.toDoubleOrNull() ?: 0.0
+                unitLocals.makingType = handleBagMakingType.value.toDoubleOrNull() ?: 0.0
                 unitLocals.heming = heming
                 unitLocals.handleFabric = handleFabric
                 unitLocals.fabricSqInch = ((height + heming) * width * 2) + (gusset * width) + handleFabric
             }
             "D Cut Bag" -> {
-                val heming = dCutBagHemming.value
-                unitLocals.makingType = dCutBagMakingType.value
+                val heming = dCutBagHemming.value.toDoubleOrNull() ?: 0.0
+                unitLocals.makingType = dCutBagMakingType.value.toDoubleOrNull() ?: 0.0
                 unitLocals.heming = heming
                 unitLocals.fabricSqInch = ((height + heming) * width * 2.0) + (gusset * width)
             }
             "Sewing Bag" -> {
-                val heming = sewingBagHemming.value
-                val handleFabric = sewingBagHandleFabric.value
-                val runner = sewingBagRunner.value
-                val piping = (height * 4.0) + (width * 2.0) + sewingBagPipingExtraAddition.value
-                unitLocals.makingType = sewingBagMakingType.value
+                val heming = sewingBagHemming.value.toDoubleOrNull() ?: 0.0
+                val handleFabric = sewingBagHandleFabric.value.toDoubleOrNull() ?: 0.0
+                val runner = sewingBagRunner.value.toDoubleOrNull() ?: 0.0
+                val piping = (height * 4.0) + (width * 2.0) + (sewingBagPipingExtraAddition.value.toDoubleOrNull() ?: 0.0)
+                unitLocals.makingType = sewingBagMakingType.value.toDoubleOrNull() ?: 0.0
                 unitLocals.heming = heming
                 unitLocals.handleFabric = handleFabric
                 unitLocals.runner = runner
@@ -318,9 +319,9 @@ class NonWovenViewModel @Inject constructor(
                         piping
             }
             "Autobox Handle Bag" -> {
-                val heming = autoboxHandleBagHemming.value
-                val handleFabric = autoboxHandleBagHandleFabric.value
-                unitLocals.makingType = autoboxHandleBagMakingType.value
+                val heming = autoboxHandleBagHemming.value.toDoubleOrNull() ?: 0.0
+                val handleFabric = autoboxHandleBagHandleFabric.value.toDoubleOrNull() ?: 0.0
+                unitLocals.makingType = autoboxHandleBagMakingType.value.toDoubleOrNull() ?: 0.0
                 unitLocals.heming = heming
                 unitLocals.handleFabric = handleFabric
                 unitLocals.fabricSqInch = ((height + heming) * width * 2) +
@@ -328,8 +329,8 @@ class NonWovenViewModel @Inject constructor(
                         handleFabric
             }
             "Autobox D Cut Bag" -> {
-                val heming = autoboxDCutBagHemming.value
-                unitLocals.makingType = autoboxDCutBagMakingType.value
+                val heming = autoboxDCutBagHemming.value.toDoubleOrNull() ?: 0.0
+                unitLocals.makingType = autoboxDCutBagMakingType.value.toDoubleOrNull() ?: 0.0
                 unitLocals.heming = heming
                 unitLocals.fabricSqInch = ((height + heming) * width * 2.0) +
                         ((gusset + 0.75) * ((height + heming) * 2.0 + width))
@@ -425,6 +426,85 @@ class NonWovenViewModel @Inject constructor(
     fun updateZipperSelected() {
         isZipperSelected.value = !isZipperSelected.value
         calculateUnitPrice()  // Recalculate when zipper is toggled
+    }
+
+    // Handle Bag Options
+    fun updateHandleBagHemming(value : String){
+        _handleBagHemming.value = value
+    }
+    fun updateHandleBagHandleFabric(value : String){
+        _handleBagHandleFabric.value = value
+    }
+    fun updateHandleBagMakingType(value : String){
+        _handleBagMakingType.value = value
+    }
+
+    // D Cut Bag Options
+    fun updateDCutBagHemming(value : String){
+        _dCutBagHemming.value = value
+    }
+    fun updateDCutBagMakingType(value : String) {
+        _dCutBagMakingType.value = value
+    }
+
+    // Sewing Bag Options
+    fun updateSewingBagHemming(value : String){
+        _sewingBagHemming.value = value
+    }
+    fun updateSewingBagHandleFabric(value : String){
+        _sewingBagHandleFabric.value = value
+    }
+    fun updateSewingBagRunner(value : String){
+        _sewingBagRunner.value = value
+    }
+    fun updateSewingBagPipingExtraAddition(value : String){
+        _sewingBagPipingExtraAddition.value = value
+    }
+    fun updateSewingBagMakingType(value : String){
+        _sewingBagMakingType.value = value
+    }
+
+    // Autobox Handle Bag Options
+    fun updateAutoboxHandleBagHemming(value : String){
+        _autoboxHandleBagHemming.value = value
+    }
+    fun updateAutoboxHandleBagHandleFabric(value : String){
+        _autoboxHandleBagHandleFabric.value = value
+    }
+    fun updateAutoboxHandleBagMakingType(value : String) {
+        _autoboxHandleBagMakingType.value = value
+    }
+
+    // Autobox D Cut Bag Options
+    fun updateAutoboxDCutBagHemming(value : String){
+        _autoboxDCutBagHemming.value = value
+    }
+    fun updateAutoboxDCutBagMakingType(value : String) {
+        _autoboxDCutBagMakingType.value = value
+    }
+
+    suspend fun saveDataToDataStore() {
+
+        val nonWovenSavedData = NonWovenSavedData(
+            handleBagHemming = handleBagHemming.value,
+            handleBagHandleFabric = handleBagHandleFabric.value,
+            handleBagMakingType = handleBagMakingType.value,
+            dCutBagHemming = dCutBagHemming.value,
+            dCutBagMakingType = dCutBagMakingType.value,
+            sewingBagHemming = sewingBagHemming.value,
+            sewingBagHandleFabric = sewingBagHandleFabric.value,
+            sewingBagRunner = sewingBagRunner.value,
+            sewingBagPipingExtraAddition = sewingBagPipingExtraAddition.value,
+            sewingBagMakingType = sewingBagMakingType.value,
+            autoboxHandleBagHemming = autoboxHandleBagHemming.value,
+            autoboxHandleBagHandleFabric = autoboxHandleBagHandleFabric.value,
+            autoboxHandleBagMakingType = autoboxHandleBagMakingType.value,
+            autoboxDCutBagHemming = autoboxDCutBagHemming.value,
+            autoboxDCutBagMakingType = autoboxDCutBagMakingType.value
+        )
+
+
+        nonWovenDataStore.saveData(nonWovenSavedData)
     }
 
 }

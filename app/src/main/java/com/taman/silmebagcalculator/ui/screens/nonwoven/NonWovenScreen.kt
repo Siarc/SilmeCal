@@ -27,28 +27,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.taman.silmebagcalculator.ui.components.BackgroundDroplet
 import com.taman.silmebagcalculator.ui.components.BagTextField
 import com.taman.silmebagcalculator.ui.components.BottomSheetNonWoven
 import com.taman.silmebagcalculator.ui.components.OptionsCard
 import com.taman.silmebagcalculator.ui.components.DropDownMenuComponent
 import com.taman.silmebagcalculator.ui.components.FancyCardView
-import com.taman.silmebagcalculator.ui.theme.SilmeBagCalculatorTheme
-
-@Preview(showBackground = true)
-@Composable
-fun NonWovenScreenPreview(
-) {
-    SilmeBagCalculatorTheme {
-        val navController = rememberNavController()
-        NonWovenScreen(navController = navController)
-    }
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -145,8 +132,6 @@ fun NonWovenScreen(
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                     ) {
-
-
 
                         BagTextField(
                             label = "Fabric Price",
