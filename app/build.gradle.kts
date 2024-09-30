@@ -11,13 +11,13 @@ plugins {
 
 android {
     namespace = "com.taman.silmebagcalculator"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.taman.silmebagcalculator"
         minSdk = 29
-        targetSdk = 34
-        versionCode = 1
+        targetSdk = 35
+        versionCode = 2
         versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
