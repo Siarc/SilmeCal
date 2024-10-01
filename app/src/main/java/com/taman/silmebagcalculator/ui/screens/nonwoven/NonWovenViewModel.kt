@@ -522,9 +522,9 @@ class NonWovenViewModel @Inject constructor(
             autoboxDCutBagMakingType = autoboxDCutBagMakingType.value
         )
 
-        calculateUnitPrice()
-
         nonWovenDataStore.saveData(nonWovenSavedData)
+
+        calculateUnitPrice()
     }
 
 }
