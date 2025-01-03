@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "549189108911",
+    "project_id": "silme-bag-calculator-2635f",
+    "storage_bucket": "silme-bag-calculator-2635f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:549189108911:android:e11f2960d423b768d2405a",
+        "android_client_info": {
+          "package_name": "com.taman.silmebagcalculator"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFb1Hbqm9W1Ym8KDwmIW_cj1mCCUQslHk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
