@@ -27,9 +27,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.taman.silmebagcalculator.R
 import com.taman.silmebagcalculator.ui.components.BackgroundDroplet
 import com.taman.silmebagcalculator.ui.components.BagTextField
 import com.taman.silmebagcalculator.ui.components.BottomSheetNonWoven
@@ -58,7 +60,7 @@ fun NonWovenScreen(
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text(text = "NonWoven") },
+                title = { Text(text = stringResource(R.string.nonwoven)) },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primary,
                     titleContentColor = MaterialTheme.colorScheme.onPrimary
@@ -97,7 +99,8 @@ fun NonWovenScreen(
                 }
                 BackgroundDroplet()
                 Column(
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier
+                        .fillMaxSize()
                         .verticalScroll(rememberScrollState())
                         .imePadding()
                         .padding(top = 10.dp, start = 5.dp, end = 5.dp),
@@ -108,7 +111,7 @@ fun NonWovenScreen(
 
                     ) {
                         DropDownMenuComponent(
-                            label = "Bag Type",
+                            label = stringResource(R.string.bag_type),
                             list = viewModel.nonWovenBagTypeList,
                             selectedOption = selectedBagType.value,
                             onOptionSelected = { selectedOption ->
@@ -119,7 +122,7 @@ fun NonWovenScreen(
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         DropDownMenuComponent(
-                            label = "Print Color",
+                            label = stringResource(R.string.print_color),
                             list = viewModel.printColors,
                             selectedOption = selectedPrintColor.value,
                             onOptionSelected = { selectedOption ->
@@ -134,7 +137,7 @@ fun NonWovenScreen(
                     ) {
 
                         BagTextField(
-                            label = "Fabric Price",
+                            label = stringResource(R.string.fabric_price),
                             text = fabricPrice,
                             onTextChange = {
                                 viewModel.updateFabricPrice(it)
@@ -143,7 +146,7 @@ fun NonWovenScreen(
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         BagTextField(
-                            label = "Additional Cost",
+                            label = stringResource(R.string.additional_cost),
                             text = additionalCost,
                             onTextChange = {
                                 viewModel.updateAdditionalCost(it)
@@ -158,7 +161,7 @@ fun NonWovenScreen(
                         modifier = Modifier.fillMaxWidth(),
                     ) {
                         BagTextField(
-                            label = "Height",
+                            label = stringResource(R.string.height),
                             text = height,
                             onTextChange = {
                                 viewModel.updateHeight(it)
@@ -167,7 +170,7 @@ fun NonWovenScreen(
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         BagTextField(
-                            label = "Width",
+                            label = stringResource(R.string.width),
                             text = width,
                             onTextChange = {
                                 viewModel.updateWidth(it)
@@ -179,7 +182,7 @@ fun NonWovenScreen(
                         modifier = Modifier.fillMaxWidth(),
                     ) {
                         BagTextField(
-                            label = "GSM",
+                            label = stringResource(R.string.gsm),
                             text = gsm,
                             onTextChange = {
                                 viewModel.updateGsm(it)
@@ -188,7 +191,7 @@ fun NonWovenScreen(
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         BagTextField(
-                            label = "Gusset",
+                            label = stringResource(R.string.gusset),
                             text = gusset,
                             onTextChange = {
                                 viewModel.updateGusset(it)
@@ -201,7 +204,7 @@ fun NonWovenScreen(
                         modifier = Modifier.fillMaxWidth(),
                     ) {
                         BagTextField(
-                            label = "Quantity",
+                            label = stringResource(R.string.quantity),
                             text = quantity,
                             onTextChange = {
                                 viewModel.updateQuantity(it)
@@ -210,7 +213,7 @@ fun NonWovenScreen(
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         BagTextField(
-                            label = "Profit",
+                            label = stringResource(R.string.profit),
                             text = profit,
                             onTextChange = {
                                 viewModel.updateProfit(it)

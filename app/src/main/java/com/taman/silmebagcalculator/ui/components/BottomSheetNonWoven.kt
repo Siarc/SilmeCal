@@ -12,7 +12,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
@@ -23,8 +22,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.taman.silmebagcalculator.R
 import com.taman.silmebagcalculator.ui.screens.nonwoven.NonWovenViewModel
 import kotlinx.coroutines.launch
 
@@ -83,14 +84,15 @@ fun BottomSheetNonWoven(viewModel: NonWovenViewModel) {
         }
         // Sheet content with full page image
         Column(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .verticalScroll(rememberScrollState())
                 .imePadding()
                 .padding(top = 10.dp, start = 5.dp, end = 5.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
-                text = "Handle Bag",
+                text = stringResource(R.string.handle_bag),
                 modifier = Modifier.fillMaxWidth()
             )
             Row(
@@ -98,7 +100,7 @@ fun BottomSheetNonWoven(viewModel: NonWovenViewModel) {
             ) {
 
                 BagTextField(
-                    label = "Hemming",
+                    label = stringResource(R.string.hemming),
                     text = handleBagHemming.value,
                     onTextChange = {
                         scope.launch {
@@ -109,7 +111,7 @@ fun BottomSheetNonWoven(viewModel: NonWovenViewModel) {
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 BagTextField(
-                    label = "Handle Fabric",
+                    label = stringResource(R.string.handle_fabric),
                     text = handleBagHandleFabric.value,
                     onTextChange = {
                         viewModel.updateHandleBagHandleFabric(it)
@@ -118,7 +120,7 @@ fun BottomSheetNonWoven(viewModel: NonWovenViewModel) {
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 BagTextField(
-                    label = "Making Type",
+                    label = stringResource(R.string.making_type),
                     text = handleBagMakingType.value,
                     onTextChange = {
                         viewModel.updateHandleBagMakingType(it)
@@ -130,7 +132,7 @@ fun BottomSheetNonWoven(viewModel: NonWovenViewModel) {
             Spacer(modifier = Modifier.height(10.dp))
 
             Text(
-                text = "D Cut Bag",
+                text = stringResource(R.string.d_cut_bag),
                 modifier = Modifier.fillMaxWidth()
             )
             Row(
@@ -138,7 +140,7 @@ fun BottomSheetNonWoven(viewModel: NonWovenViewModel) {
             ) {
 
                 BagTextField(
-                    label = "Hemming",
+                    label = stringResource(R.string.hemming),
                     text = dCutBagHemming.value,
                     onTextChange = {
                         viewModel.updateDCutBagHemming(it)
@@ -147,7 +149,7 @@ fun BottomSheetNonWoven(viewModel: NonWovenViewModel) {
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 BagTextField(
-                    label = "Making Type",
+                    label = stringResource(R.string.making_type),
                     text = dCutBagMakingType.value,
                     onTextChange = {
                         viewModel.updateDCutBagMakingType(it)
@@ -159,7 +161,7 @@ fun BottomSheetNonWoven(viewModel: NonWovenViewModel) {
             Spacer(modifier = Modifier.height(10.dp))
 
             Text(
-                text = "Sewing Bag",
+                text = stringResource(R.string.sewing_bag),
                 modifier = Modifier.fillMaxWidth()
             )
 
@@ -168,7 +170,7 @@ fun BottomSheetNonWoven(viewModel: NonWovenViewModel) {
             ) {
 
                 BagTextField(
-                    label = "Hemming",
+                    label = stringResource(R.string.hemming),
                     text = sewingBagHemming.value,
                     onTextChange = {
                         viewModel.updateSewingBagHemming(it)
@@ -177,7 +179,7 @@ fun BottomSheetNonWoven(viewModel: NonWovenViewModel) {
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 BagTextField(
-                    label = "Handle Fabric",
+                    label = stringResource(R.string.handle_fabric),
                     text = sewingBagHandleFabric.value,
                     onTextChange = {
                         viewModel.updateSewingBagHandleFabric(it)
@@ -186,7 +188,7 @@ fun BottomSheetNonWoven(viewModel: NonWovenViewModel) {
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 BagTextField(
-                    label = "Runner",
+                    label = stringResource(R.string.runner),
                     text = sewingBagRunner.value,
                     onTextChange = {
                         viewModel.updateSewingBagRunner(it)
@@ -199,7 +201,7 @@ fun BottomSheetNonWoven(viewModel: NonWovenViewModel) {
             ) {
 
                 BagTextField(
-                    label = "Piping Extra Addition",
+                    label = stringResource(R.string.piping_extra_addition),
                     text = sewingBagPipingExtraAddition.value,
                     onTextChange = {
                         viewModel.updateSewingBagPipingExtraAddition(it)
@@ -208,7 +210,7 @@ fun BottomSheetNonWoven(viewModel: NonWovenViewModel) {
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 BagTextField(
-                    label = "Making Type",
+                    label = stringResource(R.string.making_type),
                     text = sewingBagMakingType.value,
                     onTextChange = {
                         viewModel.updateSewingBagMakingType(it)
@@ -220,7 +222,7 @@ fun BottomSheetNonWoven(viewModel: NonWovenViewModel) {
             Spacer(modifier = Modifier.height(10.dp))
 
             Text(
-                text = "Autobox Handle Bag",
+                text = stringResource(R.string.autobox_handle_bag),
                 modifier = Modifier.fillMaxWidth()
             )
 
@@ -229,7 +231,7 @@ fun BottomSheetNonWoven(viewModel: NonWovenViewModel) {
             ) {
 
                 BagTextField(
-                    label = "Hemming",
+                    label = stringResource(R.string.hemming),
                     text = autoboxHandleBagHemming.value,
                     onTextChange = {
                         viewModel.updateAutoboxHandleBagHemming(it)
@@ -238,7 +240,7 @@ fun BottomSheetNonWoven(viewModel: NonWovenViewModel) {
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 BagTextField(
-                    label = "Handle Fabric",
+                    label = stringResource(R.string.handle_fabric),
                     text = autoboxHandleBagHandleFabric.value,
                     onTextChange = {
                         viewModel.updateAutoboxHandleBagHandleFabric(it)
@@ -247,7 +249,7 @@ fun BottomSheetNonWoven(viewModel: NonWovenViewModel) {
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 BagTextField(
-                    label = "Making Type",
+                    label = stringResource(R.string.making_type),
                     text = autoboxHandleBagMakingType.value,
                     onTextChange = {
                         viewModel.updateAutoboxHandleBagMakingType(it)
@@ -259,7 +261,7 @@ fun BottomSheetNonWoven(viewModel: NonWovenViewModel) {
             Spacer(modifier = Modifier.height(10.dp))
 
             Text(
-                text = "Autobox D Cut Bag",
+                text = stringResource(R.string.autobox_d_cut_bag),
                 modifier = Modifier.fillMaxWidth()
             )
 
@@ -268,7 +270,7 @@ fun BottomSheetNonWoven(viewModel: NonWovenViewModel) {
             ) {
 
                 BagTextField(
-                    label = "Hemming",
+                    label = stringResource(R.string.hemming),
                     text = autoboxDCutBagHemming.value,
                     onTextChange = {
                         viewModel.updateAutoboxDCutBagHemming(it)
@@ -277,7 +279,7 @@ fun BottomSheetNonWoven(viewModel: NonWovenViewModel) {
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 BagTextField(
-                    label = "Making Type",
+                    label = stringResource(R.string.making_type),
                     text = autoboxDCutBagMakingType.value,
                     onTextChange = {
                         viewModel.updateAutoboxDCutBagMakingType(it)

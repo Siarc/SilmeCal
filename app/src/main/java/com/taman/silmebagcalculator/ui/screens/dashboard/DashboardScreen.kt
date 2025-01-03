@@ -72,7 +72,8 @@ fun DashboardScreen(
             activity?.finish()
         } else {
             // Show warning toast
-            Toast.makeText(context, "Press back again to exit", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context,
+                context.getString(R.string.press_back_again_to_exit), Toast.LENGTH_SHORT).show()
         }
     }
     Scaffold(
@@ -140,14 +141,14 @@ fun WelcomeMessage(modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Welcome on board!",
+            text = stringResource(R.string.welcome_on_board),
             style = MaterialTheme.typography.titleLarge.copy(
                 fontWeight = FontWeight.Bold
             ),
             modifier = Modifier.padding(horizontal = 16.dp)
         )
         Text(
-            text = "Let's help you meet up your task",
+            text = stringResource(R.string.let_s_help_you_meet_up_your_task),
             style = MaterialTheme.typography.titleMedium,
             modifier = Modifier.padding(horizontal = 16.dp)
         )

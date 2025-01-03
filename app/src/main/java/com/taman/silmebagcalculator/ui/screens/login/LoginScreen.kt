@@ -127,7 +127,7 @@ private fun LoginSection(
         hasError = emailError
     )
     Spacer(modifier = Modifier.height(15.dp))
-    LoginTextField(label = "Password", text = password, onTextChange = {password = it}, isPassword = true)
+    LoginTextField(label = stringResource(R.string.password), text = password, onTextChange = {password = it}, isPassword = true)
     Spacer(modifier = Modifier.height(20.dp))
 
     Button(
@@ -135,9 +135,6 @@ private fun LoginSection(
             .fillMaxWidth()
             .height(40.dp),
         onClick = onClick@{
-
-            Log.d("Rony2", "LoginSection: $usernameEmail")
-            Log.d("Rony2", "LoginSection: $password")
 
             if (!viewModel.isValidEmail(usernameEmail)) {
                 emailError = true
@@ -157,7 +154,7 @@ private fun LoginSection(
             )
         } else {
             Text(
-                text = "Log in",
+                text = stringResource(R.string.log_in),
                 style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Medium)
             )
         }

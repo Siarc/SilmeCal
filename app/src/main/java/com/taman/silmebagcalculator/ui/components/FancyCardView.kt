@@ -14,10 +14,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.taman.silmebagcalculator.R
 import com.taman.silmebagcalculator.ui.screens.nonwoven.NonWovenViewModel
 
 @Preview(showBackground = true)
@@ -50,14 +52,14 @@ fun FancyCardView(viewModel: NonWovenViewModel) {
         ) {
             // "Unit Price" Label
             Text(
-                text = "Unit Price", style = MaterialTheme.typography.titleMedium.copy(
+                text = stringResource(R.string.unit_price), style = MaterialTheme.typography.titleMedium.copy(
                     fontWeight = FontWeight.Bold, color = Color.Black
                 )
             )
 
             // Price Text
             Text(
-                text = "$unitPrice",
+                text = unitPrice,
                 style = MaterialTheme.typography.titleMedium.copy(
                     fontWeight = FontWeight.Bold, color = Color.Black
                 )

@@ -22,9 +22,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.taman.silmebagcalculator.R
 import com.taman.silmebagcalculator.ui.theme.LightGreen
 import com.taman.silmebagcalculator.ui.theme.SilmeBagCalculatorTheme
 import com.taman.silmebagcalculator.ui.screens.nonwoven.NonWovenViewModel
@@ -70,7 +72,7 @@ fun OptionsCard(viewModel: NonWovenViewModel) {
                     modifier = Modifier.fillMaxWidth(),
                 ){
                     OptionsButton(
-                        option = "Gusset Print",
+                        option = stringResource(R.string.gusset_print),
                         isSelected = isGussetSelected,
                         onOptionSelected = {
                             viewModel.updateGussetSelected()
@@ -80,7 +82,7 @@ fun OptionsCard(viewModel: NonWovenViewModel) {
                     Spacer(modifier = Modifier.width(8.dp))
                     // Pressable Button for "Home Delivery"
                     OptionsButton(
-                        option = "Zipper",
+                        option = stringResource(R.string.zipper),
                         isSelected = isZipperSelected,
                         onOptionSelected = {
                             viewModel.updateZipperSelected()
@@ -95,7 +97,7 @@ fun OptionsCard(viewModel: NonWovenViewModel) {
                 modifier = Modifier.fillMaxWidth(),
             ){
                 OptionsButton(
-                    option = "No Delivery",
+                    option = stringResource(R.string.no_delivery),
                     isSelected = !showDeliveryOptions,
                     onOptionSelected = {
                         viewModel.updateDeliveryOptionsVisibility(false)
@@ -105,7 +107,7 @@ fun OptionsCard(viewModel: NonWovenViewModel) {
                 Spacer(modifier = Modifier.width(8.dp))
                 // Pressable Button for "Home Delivery"
                 OptionsButton(
-                    option = "Home Delivery",
+                    option = stringResource(R.string.home_delivery),
                     isSelected = showDeliveryOptions,
                     onOptionSelected = {
                         viewModel.updateDeliveryOptionsVisibility(true)
@@ -118,11 +120,11 @@ fun OptionsCard(viewModel: NonWovenViewModel) {
             // Conditional TextView for Home Delivery Fee
             if (showDeliveryOptions) {
                 Text(
-                    text = "Please enter the delivery fee:",
+                    text = stringResource(R.string.please_enter_the_delivery_fee),
                     modifier = Modifier.padding(top = 16.dp)
                 )
                 BagTextField(
-                    label = "Delivery Fee",
+                    label = stringResource(R.string.delivery_fee),
                     text = deliveryFee,
                     onTextChange = {
                         viewModel.updateDeliveryFee(it)

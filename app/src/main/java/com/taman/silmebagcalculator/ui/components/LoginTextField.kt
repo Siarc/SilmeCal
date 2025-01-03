@@ -26,12 +26,12 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun LoginTextField(
+    modifier: Modifier = Modifier,
     label: String,
     text: String,
     onTextChange: (String) -> Unit,
     isPassword: Boolean = false,
-    hasError: Boolean = false,
-    modifier: Modifier = Modifier
+    hasError: Boolean = false
 ) {
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
 
