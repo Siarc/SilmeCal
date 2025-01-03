@@ -164,14 +164,18 @@ private fun LoginSection(
     }
 
     LaunchedEffect(loginResult) {
-        when {
-            loginResult?.success == true -> {
+        when (loginResult?.success) {
+            true -> {
                 navController.navigate(DashboardScreen) {
                     popUpTo("login") { inclusive = true }
                 }
             }
-            loginResult?.success == false -> {
+            false -> {
                 Toast.makeText(context, loginResult?.message, Toast.LENGTH_SHORT).show()
+            }
+
+            null -> {
+                // Do nothing or handle null case if needed
             }
         }
     }
