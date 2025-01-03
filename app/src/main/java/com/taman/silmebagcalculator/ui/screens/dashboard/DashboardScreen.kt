@@ -109,13 +109,19 @@ fun DashboardScreen(
                     FavoriteCollectionCard(
                         fc2Drawable = R.drawable.jute_bag,
                         fc2Text = R.string.jute_bag,
-                        onClick = {},
+                        onClick = {
+                            Toast.makeText(context,
+                                context.getString(R.string.under_development), Toast.LENGTH_SHORT).show()
+                        },
                         modifier = Modifier.padding(8.dp)
                     )
                     FavoriteCollectionCard(
                         fc2Drawable = R.drawable.cotton_bag,
                         fc2Text = R.string.cotton_bag,
-                        onClick = {},
+                        onClick = {
+                            Toast.makeText(context,
+                                context.getString(R.string.under_development), Toast.LENGTH_SHORT).show()
+                        },
                         modifier = Modifier.padding(8.dp)
                     )
                 }
