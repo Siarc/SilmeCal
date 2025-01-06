@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SilmeBagCalculator</string>
+    <string name="app_name">Silme Estimator Tool</string>
     <string name="non_woven_bag">Non-woven Bag</string>
     <string name="jute_bag">Jute Bag</string>
     <string name="cotton_bag">Cotton Bag</string>
