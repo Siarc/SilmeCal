@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import java.util.Locale
 
-class NonWovenViewModel constructor(
+class NonWovenViewModel (
     private val nonWovenDataStore: NonWovenDataStore
 ) : ViewModel() {
 

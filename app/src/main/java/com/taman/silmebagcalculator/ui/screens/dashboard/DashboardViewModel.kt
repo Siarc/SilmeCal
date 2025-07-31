@@ -7,11 +7,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class DashboardViewModel : ViewModel(){
+open class DashboardViewModel : ViewModel(){
     private val _backPressedOnce = MutableStateFlow(false)
     val backPressedOnce: StateFlow<Boolean> = _backPressedOnce
 
-    fun onBackPressed() {
+    open fun onBackPressed() {
         if (_backPressedOnce.value) {
             // Perform exit action
         } else {
@@ -21,5 +21,11 @@ class DashboardViewModel : ViewModel(){
                 _backPressedOnce.value = false
             }
         }
+    }
+}
+
+class FakeDashboardViewModel : DashboardViewModel() {
+    override fun onBackPressed() {
+        // Skip delay and just toggle state if needed, or leave empty
     }
 }

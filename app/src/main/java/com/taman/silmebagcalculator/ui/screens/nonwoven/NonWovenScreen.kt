@@ -24,13 +24,18 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.taman.silmebagcalculator.R
+import com.taman.silmebagcalculator.datastore.NonWovenDataStore
 import com.taman.silmebagcalculator.ui.components.BackgroundDroplet
 import com.taman.silmebagcalculator.ui.components.BagTextField
 import com.taman.silmebagcalculator.ui.components.BottomSheetNonWoven
@@ -39,12 +44,33 @@ import com.taman.silmebagcalculator.ui.components.DropDownMenuComponent
 import com.taman.silmebagcalculator.ui.components.FancyCardView
 import org.koin.compose.viewmodel.koinViewModel
 
+
+@Preview
+@Composable
+fun NonWovenScreenPreview() {
+    val context = LocalContext.current
+    val navController = rememberNavController()
+
+    // Provide a fake or default ViewModel instance for preview
+    val previewViewModel = remember {
+        NonWovenViewModel(NonWovenDataStore(context))
+    }
+    
+    NonWovenScreen(
+        viewModel = previewViewModel,
+        navController = navController
+    )
+}
+
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NonWovenScreen(
     viewModel: NonWovenViewModel = koinViewModel(), navController: NavHostController,
 ) {
     // Observing the state variables from the ViewModel
+    val isBottomSheetOpen by viewModel.isBottomSheetOpen
+
     val fabricPrice by viewModel.fabricPrice
     val height by viewModel.height
     val width by viewModel.width
@@ -77,7 +103,7 @@ fun NonWovenScreen(
                 actions = {
                     IconButton(
                         onClick = {
-                            viewModel.updateBottomSheetState(!viewModel.isBottomSheetOpen.value)
+                            viewModel.updateBottomSheetState(!isBottomSheetOpen)
                         }
                     ) {
                         Icon(
@@ -94,7 +120,7 @@ fun NonWovenScreen(
                 color = Color.White,
                 modifier = Modifier.padding(padding)
             ) {
-                if (viewModel.isBottomSheetOpen.value) {
+                if (isBottomSheetOpen) {
                     BottomSheetNonWoven(viewModel)
                 }
                 BackgroundDroplet()
@@ -234,5 +260,3 @@ fun NonWovenScreen(
 
 
 }
-
-

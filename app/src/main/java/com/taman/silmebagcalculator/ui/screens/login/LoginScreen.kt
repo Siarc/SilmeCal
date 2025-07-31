@@ -40,7 +40,6 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.taman.silmebagcalculator.R
@@ -48,19 +47,22 @@ import com.taman.silmebagcalculator.ui.components.LoginTextField
 import com.taman.silmebagcalculator.ui.theme.Roboto
 import com.taman.silmebagcalculator.ui.theme.SilmeBagCalculatorTheme
 import com.taman.silmebagcalculator.utils.DashboardScreen
+import org.koin.compose.viewmodel.koinViewModel
 
 @Preview(showBackground = true)
 @Composable
 fun LoginScreenPreview(){
+    val navController = rememberNavController()
+    val fakeViewModel = remember { LoginScreenViewModel(FakeAuthRepository()) }
+
     SilmeBagCalculatorTheme {
-        val navController = rememberNavController()
-        LoginScreen(navController = navController)
+        LoginScreen(viewModel = fakeViewModel, navController = navController)
     }
 }
 
 @Composable
 fun LoginScreen(
-    viewModel: LoginScreenViewModel = viewModel(),
+    viewModel: LoginScreenViewModel = koinViewModel(),
     navController: NavHostController
 ) {
     Surface {

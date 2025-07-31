@@ -26,6 +26,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -37,20 +38,24 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.taman.silmebagcalculator.R
 import com.taman.silmebagcalculator.ui.components.BackgroundDroplet
 import com.taman.silmebagcalculator.ui.theme.SilmeBagCalculatorTheme
 import com.taman.silmebagcalculator.utils.NonWovenScreen
+import org.koin.androidx.compose.koinViewModel
 
 @Preview(showBackground = true)
 @Composable
 fun DashboardScreenPreview(){
     val navController = rememberNavController()
+    val fakeViewModel = remember { FakeDashboardViewModel() }
     SilmeBagCalculatorTheme {
-        DashboardScreen(navController = navController)
+        DashboardScreen(
+            viewModel = fakeViewModel,
+            navController = navController
+        )
     }
 }
 
@@ -58,7 +63,7 @@ fun DashboardScreenPreview(){
 @Composable
 fun DashboardScreen(
     modifier: Modifier = Modifier,
-    viewModel: DashboardViewModel = viewModel(),
+    viewModel: DashboardViewModel = koinViewModel(),
     navController: NavHostController
 ){
     val backPressedOnce by viewModel.backPressedOnce.collectAsState()
