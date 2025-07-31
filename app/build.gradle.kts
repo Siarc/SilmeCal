@@ -8,7 +8,6 @@ plugins {
     alias(libs.plugins.google.services)
     alias(libs.plugins.google.crashlytics)
     alias(libs.plugins.devtools.ksp)
-    alias(libs.plugins.dagger.hilt.android)
 }
 
 android {
@@ -18,7 +17,7 @@ android {
     defaultConfig {
         applicationId = "com.taman.silmebagcalculator"
         minSdk = 29
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 5
         versionName = "1.1.0"
 
@@ -89,9 +88,6 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.firebase.crashlytics)
     implementation(libs.firebase.analytics)
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.android.compiler)
-    implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)

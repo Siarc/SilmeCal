@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.taman.silmebagcalculator.datastore.NonWovenDataStore
 import com.taman.silmebagcalculator.models.NonWovenSavedData
 import com.taman.silmebagcalculator.models.NonwovenUnitLocals
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,10 +14,8 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import java.util.Locale
-import javax.inject.Inject
 
-@HiltViewModel
-class NonWovenViewModel @Inject constructor(
+class NonWovenViewModel constructor(
     private val nonWovenDataStore: NonWovenDataStore
 ) : ViewModel() {
 

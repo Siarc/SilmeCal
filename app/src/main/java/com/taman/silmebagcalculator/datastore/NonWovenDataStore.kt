@@ -5,19 +5,13 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.taman.silmebagcalculator.models.NonWovenSavedData
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
-import javax.inject.Singleton
 
 // Extension property to create the DataStore instance
 private val Context.nonWovenDataStore by preferencesDataStore(name = "non_woven_preferences")
 
-@Singleton
-class NonWovenDataStore @Inject constructor(
-    @ApplicationContext private val context: Context
-) {
+class NonWovenDataStore(private val context: Context) {
 
     // Define keys for each individual value
     private val HANDLE_BAG_HEMMING_KEY = stringPreferencesKey("handle_bag_hemming")
@@ -30,15 +24,19 @@ class NonWovenDataStore @Inject constructor(
     private val SEWING_BAG_HEMMING_KEY = stringPreferencesKey("sewing_bag_hemming")
     private val SEWING_BAG_HANDLE_FABRIC_KEY = stringPreferencesKey("sewing_bag_handle_fabric")
     private val SEWING_BAG_RUNNER_KEY = stringPreferencesKey("sewing_bag_runner")
-    private val SEWING_BAG_PIPING_EXTRA_ADDITION_KEY = stringPreferencesKey("sewing_bag_piping_extra_addition")
+    private val SEWING_BAG_PIPING_EXTRA_ADDITION_KEY =
+        stringPreferencesKey("sewing_bag_piping_extra_addition")
     private val SEWING_BAG_MAKING_TYPE_KEY = stringPreferencesKey("sewing_bag_making_type")
 
     private val AUTOBOX_HANDLE_BAG_HEMMING_KEY = stringPreferencesKey("autobox_handle_bag_hemming")
-    private val AUTOBOX_HANDLE_BAG_HANDLE_FABRIC_KEY = stringPreferencesKey("autobox_handle_bag_handle_fabric")
-    private val AUTOBOX_HANDLE_BAG_MAKING_TYPE_KEY = stringPreferencesKey("autobox_handle_bag_making_type")
+    private val AUTOBOX_HANDLE_BAG_HANDLE_FABRIC_KEY =
+        stringPreferencesKey("autobox_handle_bag_handle_fabric")
+    private val AUTOBOX_HANDLE_BAG_MAKING_TYPE_KEY =
+        stringPreferencesKey("autobox_handle_bag_making_type")
 
     private val AUTOBOX_D_CUT_BAG_HEMMING_KEY = stringPreferencesKey("autobox_d_cut_bag_hemming")
-    private val AUTOBOX_D_CUT_BAG_MAKING_TYPE_KEY = stringPreferencesKey("autobox_d_cut_bag_making_type")
+    private val AUTOBOX_D_CUT_BAG_MAKING_TYPE_KEY =
+        stringPreferencesKey("autobox_d_cut_bag_making_type")
 
     // save functions for each type of value
     suspend fun saveData(value: NonWovenSavedData) {

@@ -29,7 +29,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.taman.silmebagcalculator.R
 import com.taman.silmebagcalculator.ui.components.BackgroundDroplet
@@ -38,11 +37,12 @@ import com.taman.silmebagcalculator.ui.components.BottomSheetNonWoven
 import com.taman.silmebagcalculator.ui.components.OptionsCard
 import com.taman.silmebagcalculator.ui.components.DropDownMenuComponent
 import com.taman.silmebagcalculator.ui.components.FancyCardView
+import org.koin.compose.viewmodel.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NonWovenScreen(
-    viewModel: NonWovenViewModel = hiltViewModel(), navController: NavHostController
+    viewModel: NonWovenViewModel = koinViewModel(), navController: NavHostController,
 ) {
     // Observing the state variables from the ViewModel
     val fabricPrice by viewModel.fabricPrice
@@ -94,7 +94,7 @@ fun NonWovenScreen(
                 color = Color.White,
                 modifier = Modifier.padding(padding)
             ) {
-                if (viewModel.isBottomSheetOpen.value){
+                if (viewModel.isBottomSheetOpen.value) {
                     BottomSheetNonWoven(viewModel)
                 }
                 BackgroundDroplet()
