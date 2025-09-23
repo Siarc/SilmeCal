@@ -23,6 +23,8 @@
     <string name="zipper">Zipper</string>
     <string name="gusset_print">Gusset Print</string>
     <string name="nonwoven">NonWoven</string>
+    <string name="cotton">Cotton</string>
+    <string name="jute">Jute</string>
     <string name="bag_type">Bag Type</string>
     <string name="print_color">Print Color</string>
     <string name="fabric_price">Fabric Price</string>
@@ -45,4 +47,12 @@
     <string name="piping_extra_addition">Piping Extra Addition</string>
     <string name="autobox_handle_bag">Autobox Handle Bag</string>
     <string name="autobox_d_cut_bag">Autobox D Cut Bag</string>
+    <string name="fabric_cuttable_width">Fabric Cuttable Width</string>
+    <string name="print_cost">Print Cost</string>
+    <string name="handle_length">Handle Length</string>
+    <string name="making">Making</string>
+    <string name="accessories">Accessories</string>
+    <string name="commercial_transport"><![CDATA[Commercial & Transport]]></string>
+    <string name="buying_commission">Buying Commission</string>
+    <string name="zipper_fabric_width">Zipper Fabric Width</string>
 </resources>

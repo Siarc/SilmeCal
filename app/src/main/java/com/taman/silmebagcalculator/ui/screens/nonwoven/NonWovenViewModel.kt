@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import java.util.Locale
 
-class NonWovenViewModel (
+class NonWovenViewModel(
     private val nonWovenDataStore: NonWovenDataStore
 ) : ViewModel() {
 
@@ -45,7 +45,8 @@ class NonWovenViewModel (
     val sewingBagRunner: StateFlow<String> = _sewingBagRunner.asStateFlow()
 
     private val _sewingBagPipingExtraAddition = MutableStateFlow("10.0")
-    val sewingBagPipingExtraAddition: StateFlow<String> = _sewingBagPipingExtraAddition.asStateFlow()
+    val sewingBagPipingExtraAddition: StateFlow<String> =
+        _sewingBagPipingExtraAddition.asStateFlow()
 
     private val _sewingBagMakingType = MutableStateFlow("4.0")
     val sewingBagMakingType: StateFlow<String> = _sewingBagMakingType.asStateFlow()
@@ -54,7 +55,8 @@ class NonWovenViewModel (
     val autoboxHandleBagHemming: StateFlow<String> = _autoboxHandleBagHemming.asStateFlow()
 
     private val _autoboxHandleBagHandleFabric = MutableStateFlow("70.0")
-    val autoboxHandleBagHandleFabric: StateFlow<String> = _autoboxHandleBagHandleFabric.asStateFlow()
+    val autoboxHandleBagHandleFabric: StateFlow<String> =
+        _autoboxHandleBagHandleFabric.asStateFlow()
 
     private val _autoboxHandleBagMakingType = MutableStateFlow("2.0")
     val autoboxHandleBagMakingType: StateFlow<String> = _autoboxHandleBagMakingType.asStateFlow()
@@ -94,15 +96,19 @@ class NonWovenViewModel (
         private set
 
     // Lists for dropdown
-    val nonWovenBagTypeList = listOf("Handle Bag",
+    val nonWovenBagTypeList = listOf(
+        "Handle Bag",
         "D Cut Bag",
         "Autobox Handle Bag",
         "Autobox D Cut Bag",
-        "Sewing Bag")
-    val printColors = listOf("One Color",
+        "Sewing Bag"
+    )
+    val printColors = listOf(
+        "One Color",
         "Two Color",
         "Three Color",
-        "Four Color")
+        "Four Color"
+    )
 
     // MutableStates for fields that affect price
     var fabricPrice = mutableStateOf("")
@@ -253,8 +259,9 @@ class NonWovenViewModel (
 
         val printColorValue = getColorValue()
 
-        val nonwovenBagFabricPricePerUnit = unitLocals.fabricSqInch * 0.00067 * (fabricPriceValue / 1000.0) * gsmValue
-        val twoPercent = 2.0/100.0
+        val nonwovenBagFabricPricePerUnit =
+            unitLocals.fabricSqInch * 0.00067 * (fabricPriceValue / 1000.0) * gsmValue
+        val twoPercent = 2.0 / 100.0
         val wastage = nonwovenBagFabricPricePerUnit * twoPercent
         val blockCost = ((heightValue - 4.0) * (widthValue - 3.0) * 10.0) / quantityValue
         val gussetCost = unitLocals.gussetPrint
@@ -263,7 +270,8 @@ class NonWovenViewModel (
 
         val deliveryCost = if (deliveryFeeValue > 0) deliveryFeeValue / quantityValue else 0.0
 
-        val totalCost = nonwovenBagFabricPricePerUnit + makingTypeCost + blockCost + printColorValue +gussetCost + zipperCost + additionalCostValue + profitValue + deliveryCost + wastage
+        val totalCost =
+            nonwovenBagFabricPricePerUnit + makingTypeCost + blockCost + printColorValue + gussetCost + zipperCost + additionalCostValue + profitValue + deliveryCost + wastage
 
         if (totalCost < 0 || totalCost.isNaN() || totalCost.isInfinite()) {
             return
@@ -272,7 +280,8 @@ class NonWovenViewModel (
         val formattedTotalCost = if (totalCost % 1 == 0.0) {
             totalCost.toInt().toString() // No decimal points if it's a whole number
         } else {
-            String.format(Locale.ENGLISH,"%.4f", totalCost).trimEnd('0').trimEnd('.') // Up to 4 decimal places, remove trailing zeros and decimal point if not needed
+            String.format(Locale.ENGLISH, "%.4f", totalCost).trimEnd('0')
+                .trimEnd('.') // Up to 4 decimal places, remove trailing zeros and decimal point if not needed
         }
 
         unitPrice.value = formattedTotalCost
@@ -295,25 +304,31 @@ class NonWovenViewModel (
             "Select Bag Type" -> {
                 return unitLocals
             }
+
             "Handle Bag" -> {
                 val heming = handleBagHemming.value.toDoubleOrNull() ?: 0.0
                 val handleFabric = handleBagHandleFabric.value.toDoubleOrNull() ?: 0.0
                 unitLocals.makingType = handleBagMakingType.value.toDoubleOrNull() ?: 0.0
                 unitLocals.heming = heming
                 unitLocals.handleFabric = handleFabric
-                unitLocals.fabricSqInch = ((height + heming) * width * 2) + (gusset * width) + handleFabric
+                unitLocals.fabricSqInch =
+                    ((height + heming) * width * 2) + (gusset * width) + handleFabric
             }
+
             "D Cut Bag" -> {
                 val heming = dCutBagHemming.value.toDoubleOrNull() ?: 0.0
                 unitLocals.makingType = dCutBagMakingType.value.toDoubleOrNull() ?: 0.0
                 unitLocals.heming = heming
                 unitLocals.fabricSqInch = ((height + heming) * width * 2.0) + (gusset * width)
             }
+
             "Sewing Bag" -> {
                 val heming = sewingBagHemming.value.toDoubleOrNull() ?: 0.0
                 val handleFabric = sewingBagHandleFabric.value.toDoubleOrNull() ?: 0.0
                 val runner = sewingBagRunner.value.toDoubleOrNull() ?: 0.0
-                val piping = (height * 4.0) + (width * 2.0) + (sewingBagPipingExtraAddition.value.toDoubleOrNull() ?: 0.0)
+                val piping =
+                    (height * 4.0) + (width * 2.0) + (sewingBagPipingExtraAddition.value.toDoubleOrNull()
+                        ?: 0.0)
                 unitLocals.makingType = sewingBagMakingType.value.toDoubleOrNull() ?: 0.0
                 unitLocals.heming = heming
                 unitLocals.handleFabric = handleFabric
@@ -321,7 +336,8 @@ class NonWovenViewModel (
                 unitLocals.piping = piping
 
                 if (allowGussetPrint) {
-                    unitLocals.gussetPrint = 1.0 + ((height - 3.0) * (gusset - 1.0) * 10.0) / quantity
+                    unitLocals.gussetPrint =
+                        1.0 + ((height - 3.0) * (gusset - 1.0) * 10.0) / quantity
                 }
                 if (allowZipper) {
                     unitLocals.zipper = runner +
@@ -334,6 +350,7 @@ class NonWovenViewModel (
                         handleFabric +
                         piping
             }
+
             "Autobox Handle Bag" -> {
                 val heming = autoboxHandleBagHemming.value.toDoubleOrNull() ?: 0.0
                 val handleFabric = autoboxHandleBagHandleFabric.value.toDoubleOrNull() ?: 0.0
@@ -344,6 +361,7 @@ class NonWovenViewModel (
                         ((gusset + 0.75) * ((height + heming) * 2 + width)) +
                         handleFabric
             }
+
             "Autobox D Cut Bag" -> {
                 val heming = autoboxDCutBagHemming.value.toDoubleOrNull() ?: 0.0
                 unitLocals.makingType = autoboxDCutBagMakingType.value.toDoubleOrNull() ?: 0.0
@@ -351,6 +369,7 @@ class NonWovenViewModel (
                 unitLocals.fabricSqInch = ((height + heming) * width * 2.0) +
                         ((gusset + 0.75) * ((height + heming) * 2.0 + width))
             }
+
             else -> {
                 return unitLocals
             }
@@ -360,7 +379,7 @@ class NonWovenViewModel (
     }
 
     // Function to update bottom sheet visibility
-    fun updateBottomSheetState(value: Boolean){
+    fun updateBottomSheetState(value: Boolean) {
         isBottomSheetOpen.value = value
     }
 
@@ -411,24 +430,24 @@ class NonWovenViewModel (
     }
 
     // Sewing Bag Option visibility updates
-    fun updateSewingBagOptionsVisibility(value : Boolean) {
+    fun updateSewingBagOptionsVisibility(value: Boolean) {
         showSewingBagOptions.value = value
     }
 
     // Update print color
-    fun updateSelectedPrintColor(value : String) {
+    fun updateSelectedPrintColor(value: String) {
         selectedPrintColor.value = value
         calculateUnitPrice()
     }
 
     // Update bag type
-    fun updateSelectedBagType(value : String) {
+    fun updateSelectedBagType(value: String) {
         selectedBagType.value = value
         calculateUnitPrice()
     }
 
     // Delivery Option visibility updates
-    fun updateDeliveryOptionsVisibility(value : Boolean) {
+    fun updateDeliveryOptionsVisibility(value: Boolean) {
         showDeliveryOptions.value = value
     }
 
@@ -445,57 +464,67 @@ class NonWovenViewModel (
     }
 
     // Handle Bag Options
-    fun updateHandleBagHemming(value : String){
+    fun updateHandleBagHemming(value: String) {
         _handleBagHemming.value = value
     }
-    fun updateHandleBagHandleFabric(value : String){
+
+    fun updateHandleBagHandleFabric(value: String) {
         _handleBagHandleFabric.value = value
     }
-    fun updateHandleBagMakingType(value : String){
+
+    fun updateHandleBagMakingType(value: String) {
         _handleBagMakingType.value = value
     }
 
     // D Cut Bag Options
-    fun updateDCutBagHemming(value : String){
+    fun updateDCutBagHemming(value: String) {
         _dCutBagHemming.value = value
     }
-    fun updateDCutBagMakingType(value : String) {
+
+    fun updateDCutBagMakingType(value: String) {
         _dCutBagMakingType.value = value
     }
 
     // Sewing Bag Options
-    fun updateSewingBagHemming(value : String){
+    fun updateSewingBagHemming(value: String) {
         _sewingBagHemming.value = value
     }
-    fun updateSewingBagHandleFabric(value : String){
+
+    fun updateSewingBagHandleFabric(value: String) {
         _sewingBagHandleFabric.value = value
     }
-    fun updateSewingBagRunner(value : String){
+
+    fun updateSewingBagRunner(value: String) {
         _sewingBagRunner.value = value
     }
-    fun updateSewingBagPipingExtraAddition(value : String){
+
+    fun updateSewingBagPipingExtraAddition(value: String) {
         _sewingBagPipingExtraAddition.value = value
     }
-    fun updateSewingBagMakingType(value : String){
+
+    fun updateSewingBagMakingType(value: String) {
         _sewingBagMakingType.value = value
     }
 
     // Autobox Handle Bag Options
-    fun updateAutoboxHandleBagHemming(value : String){
+    fun updateAutoboxHandleBagHemming(value: String) {
         _autoboxHandleBagHemming.value = value
     }
-    fun updateAutoboxHandleBagHandleFabric(value : String){
+
+    fun updateAutoboxHandleBagHandleFabric(value: String) {
         _autoboxHandleBagHandleFabric.value = value
     }
-    fun updateAutoboxHandleBagMakingType(value : String) {
+
+    fun updateAutoboxHandleBagMakingType(value: String) {
         _autoboxHandleBagMakingType.value = value
     }
 
     // Autobox D Cut Bag Options
-    fun updateAutoboxDCutBagHemming(value : String){
+    fun updateAutoboxDCutBagHemming(value: String) {
         _autoboxDCutBagHemming.value = value
     }
-    fun updateAutoboxDCutBagMakingType(value : String) {
+
+    fun updateAutoboxDCutBagMakingType(value: String) {
         _autoboxDCutBagMakingType.value = value
     }
 
