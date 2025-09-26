@@ -43,6 +43,7 @@ import androidx.navigation.compose.rememberNavController
 import com.taman.silmebagcalculator.R
 import com.taman.silmebagcalculator.ui.components.BackgroundDroplet
 import com.taman.silmebagcalculator.ui.theme.SilmeBagCalculatorTheme
+import com.taman.silmebagcalculator.utils.CottonScreen
 import com.taman.silmebagcalculator.utils.NonWovenScreen
 import org.koin.androidx.compose.koinViewModel
 
@@ -125,8 +126,7 @@ fun DashboardScreen(
                         fc2Drawable = R.drawable.cotton_bag,
                         fc2Text = R.string.cotton_bag,
                         onClick = {
-                            Toast.makeText(context,
-                                context.getString(R.string.under_development), Toast.LENGTH_SHORT).show()
+                            navController.navigate(CottonScreen)
                         },
                         modifier = Modifier.padding(8.dp)
                     )

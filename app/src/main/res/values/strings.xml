@@ -55,4 +55,13 @@
     <string name="commercial_transport"><![CDATA[Commercial & Transport]]></string>
     <string name="buying_commission">Buying Commission</string>
     <string name="zipper_fabric_width">Zipper Fabric Width</string>
+    <string name="fabric_per_bag">Fabric Per Bag</string>
+    <string name="fabric_per_dozen">Fabric Per Dozen</string>
+    <string name="total_fabric_needed">Total Fabric Needed</string>
+    <string name="handle_width">Handle Width</string>
+    <string name="carton_cost">Carton Cost</string>
+    <string name="runner_price">Runner Price</string>
+    <string name="zipper_price_per_inch"> Zipper Price Per Inch</string>
+    <string name="zipper_cm_charge">Zipper cm Charge</string>
+    <string name="wastage_percentage">Wastage Percentage</string>
 </resources>

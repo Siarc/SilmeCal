@@ -10,3 +10,9 @@ object DashboardScreen
 
 @Serializable
 object NonWovenScreen
+
+@Serializable
+object JuteScreen
+
+@Serializable
+object CottonScreen

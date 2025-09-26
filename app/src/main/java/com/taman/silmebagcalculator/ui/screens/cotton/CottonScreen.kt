@@ -1,5 +1,6 @@
 package com.taman.silmebagcalculator.ui.screens.cotton
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -38,7 +39,9 @@ import com.taman.silmebagcalculator.R
 import com.taman.silmebagcalculator.datastore.CottonDataStore
 import com.taman.silmebagcalculator.ui.components.BackgroundDroplet
 import com.taman.silmebagcalculator.ui.components.BagTextField
+import com.taman.silmebagcalculator.ui.components.BottomSheetCotton
 import com.taman.silmebagcalculator.ui.components.DropDownMenuComponent
+import com.taman.silmebagcalculator.ui.components.FancyCottonPriceView
 import org.koin.compose.viewmodel.koinViewModel
 
 @Preview
@@ -68,6 +71,7 @@ fun CottonScreen(
 
     val fabricCuttableWidth by viewModel.fabricCuttableWidth
     val fabricPrice by viewModel.fabricPrice
+    val profit by viewModel.profit
     val printCost by viewModel.printCost
     val height by viewModel.height
     val width by viewModel.width
@@ -102,6 +106,7 @@ fun CottonScreen(
                 actions = {
                     IconButton(
                         onClick = {
+                            Log.d("Rony2", "CottonScreen: 1")
                             viewModel.updateBottomSheetState(!isBottomSheetOpen)
                         }
                     ) {
@@ -120,7 +125,7 @@ fun CottonScreen(
                 modifier = Modifier.padding(padding)
             ) {
                 if (isBottomSheetOpen) {
-                    //BottomSheetCotton(viewModel)
+                    BottomSheetCotton(viewModel)
                 }
                 BackgroundDroplet()
                 Column(
@@ -132,8 +137,8 @@ fun CottonScreen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     Row(
-                        modifier = Modifier.fillMaxWidth()
-
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
                         DropDownMenuComponent(
                             label = stringResource(R.string.bag_type),
@@ -144,12 +149,26 @@ fun CottonScreen(
                             },
                             Modifier.weight(1f)
                         )
-                        Spacer(modifier = Modifier.width(8.dp))
+                    }
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
                         BagTextField(
                             label = stringResource(R.string.fabric_cuttable_width),
                             text = fabricCuttableWidth,
                             onTextChange = {
                                 viewModel.updateFabricCuttableWidth(it)
+                            },
+                            Modifier.weight(1f)
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        BagTextField(
+                            label = stringResource(R.string.profit),
+                            text = profit,
+                            onTextChange = {
+                                viewModel.updateProfit(it)
                             },
                             Modifier.weight(1f)
                         )
@@ -177,8 +196,6 @@ fun CottonScreen(
                             Modifier.weight(1f)
                         )
                     }
-
-
 
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -292,8 +309,7 @@ fun CottonScreen(
 
                     }
 
-
-                    //FancyCardView(viewModel)
+                    FancyCottonPriceView(viewModel)
 
                 }
             }
