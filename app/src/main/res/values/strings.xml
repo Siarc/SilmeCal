@@ -64,4 +64,23 @@
     <string name="zipper_price_per_inch"> Zipper Price Per Inch</string>
     <string name="zipper_cm_charge">Zipper cm Charge</string>
     <string name="wastage_percentage">Wastage Percentage</string>
+    <string name="fabric_type">Fabric type</string>
+    <string name="gusset_width">Gusset Width</string>
+    <string name="handle_cost">Handle Cost</string>
+    <string name="making_cost">Making Cost</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="fabric_price_per_yard">Fabric Price Per Yard</string>
+    <string name="natural_15_x_15">Natural 15x15</string>
+    <string name="color_15_x_15">Color 15x15</string>
+    <string name="natural_13_x_13">Natural 13x13</string>
+    <string name="color_13_x_13">Color 13x13</string>
+    <string name="jute_cotton_single_ply_natural">Jute Cotton Single ply Natural</string>
+    <string name="jute_cotton_single_ply_color">Jute Cotton Single ply Color</string>
+    <string name="jute_cotton_double_ply_natural">Jute Cotton Double ply Natural</string>
+    <string name="jute_cotton_double_ply_color">Jute Cotton Double ply Color</string>
+    <string name="other">Other</string>
+    <string name="sample_cost">Sample Cost</string>
+    <string name="lamination">Lamination</string>
+
 </resources>

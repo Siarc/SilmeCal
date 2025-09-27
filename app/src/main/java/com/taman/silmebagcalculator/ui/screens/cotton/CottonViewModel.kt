@@ -195,46 +195,33 @@ class CottonViewModel(private val cottonDataStore: CottonDataStore) : ViewModel(
         calculateAllPrice()
     }
 
-    // Update bag type
     fun updateSelectedBagType(value: String) {
         selectedBagType.value = value
         calculateAllPrice()
     }
 
-    // Update handle width
     fun updateHandleWidth(value: String) {
         _handleWidth.value = value
-        calculateAllPrice()
     }
 
-    // Update carton cost
     fun updateCartonCost(value: String) {
         _cartonCost.value = value
-        calculateAllPrice()
     }
 
-    // Update runner price
     fun updateRunnerPrice(value: String) {
         _runnerPrice.value = value
-        calculateAllPrice()
     }
 
-    // Update zipper price per inch
     fun updateZipperPricePerInch(value: String) {
         _zipperPricePerInch.value = value
-        calculateAllPrice()
     }
 
-    // Update zipper cm charge
     fun updateZipperCmCharge(value: String) {
         _zipperCmCharge.value = value
-        calculateAllPrice()
     }
 
-    // Update wastage percentage
     fun updateWastagePercentage(value: String) {
         _wastagePercentage.value = value
-        calculateAllPrice()
     }
 
     private fun calculateAllPrice() {
@@ -333,7 +320,7 @@ class CottonViewModel(private val cottonDataStore: CottonDataStore) : ViewModel(
     suspend fun saveDataToDataStore() {
 
         val cottonSavedData = CottonSavedData(
-            handleWidth =handleWidth.value,
+            handleWidth = handleWidth.value,
             cartonCost = cartonCost.value,
             runnerPrice = runnerPrice.value,
             zipperPricePerInch = zipperPricePerInch.value,

@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.taman.silmebagcalculator.datastore.NonWovenDataStore
 import com.taman.silmebagcalculator.models.NonWovenSavedData
-import com.taman.silmebagcalculator.models.NonwovenUnitLocals
+import com.taman.silmebagcalculator.models.NonwovenUnitLocal
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -245,7 +245,7 @@ class NonWovenViewModel(
         val additionalCostValue = additionalCost.value.toDoubleOrNull() ?: 0.0
         val profitValue = profit.value.toDoubleOrNull() ?: 0.0
 
-        val unitLocals = getNonwovenUnitLocals(
+        val unitLocals = getNonwovenUnitLocal(
             selectedBagType.value,
             heightValue,
             widthValue,
@@ -287,7 +287,7 @@ class NonWovenViewModel(
         unitPrice.value = formattedTotalCost
     }
 
-    private fun getNonwovenUnitLocals(
+    private fun getNonwovenUnitLocal(
         nonwovenBagType: String,
         height: Double,
         width: Double,
@@ -297,8 +297,8 @@ class NonWovenViewModel(
         fabricPrice: Double,
         allowGussetPrint: Boolean,
         allowZipper: Boolean
-    ): NonwovenUnitLocals {
-        val unitLocals = NonwovenUnitLocals()
+    ): NonwovenUnitLocal {
+        val unitLocals = NonwovenUnitLocal()
 
         when (nonwovenBagType) {
             "Select Bag Type" -> {
@@ -306,31 +306,31 @@ class NonWovenViewModel(
             }
 
             "Handle Bag" -> {
-                val heming = handleBagHemming.value.toDoubleOrNull() ?: 0.0
+                val hemming = handleBagHemming.value.toDoubleOrNull() ?: 0.0
                 val handleFabric = handleBagHandleFabric.value.toDoubleOrNull() ?: 0.0
                 unitLocals.makingType = handleBagMakingType.value.toDoubleOrNull() ?: 0.0
-                unitLocals.heming = heming
+                unitLocals.hemming = hemming
                 unitLocals.handleFabric = handleFabric
                 unitLocals.fabricSqInch =
-                    ((height + heming) * width * 2) + (gusset * width) + handleFabric
+                    ((height + hemming) * width * 2) + (gusset * width) + handleFabric
             }
 
             "D Cut Bag" -> {
-                val heming = dCutBagHemming.value.toDoubleOrNull() ?: 0.0
+                val hemming = dCutBagHemming.value.toDoubleOrNull() ?: 0.0
                 unitLocals.makingType = dCutBagMakingType.value.toDoubleOrNull() ?: 0.0
-                unitLocals.heming = heming
-                unitLocals.fabricSqInch = ((height + heming) * width * 2.0) + (gusset * width)
+                unitLocals.hemming = hemming
+                unitLocals.fabricSqInch = ((height + hemming) * width * 2.0) + (gusset * width)
             }
 
             "Sewing Bag" -> {
-                val heming = sewingBagHemming.value.toDoubleOrNull() ?: 0.0
+                val hemming = sewingBagHemming.value.toDoubleOrNull() ?: 0.0
                 val handleFabric = sewingBagHandleFabric.value.toDoubleOrNull() ?: 0.0
                 val runner = sewingBagRunner.value.toDoubleOrNull() ?: 0.0
                 val piping =
                     (height * 4.0) + (width * 2.0) + (sewingBagPipingExtraAddition.value.toDoubleOrNull()
                         ?: 0.0)
                 unitLocals.makingType = sewingBagMakingType.value.toDoubleOrNull() ?: 0.0
-                unitLocals.heming = heming
+                unitLocals.hemming = hemming
                 unitLocals.handleFabric = handleFabric
                 unitLocals.runner = runner
                 unitLocals.piping = piping
@@ -345,29 +345,29 @@ class NonWovenViewModel(
                             3.0 +
                             ((width + 1.0) * height) * 0.00067 * gsm * (fabricPrice / 1000.0)
                 }
-                unitLocals.fabricSqInch = ((height + heming) * width * 2.0) +
-                        (gusset * ((height + heming) * 2.0 + width)) +
+                unitLocals.fabricSqInch = ((height + hemming) * width * 2.0) +
+                        (gusset * ((height + hemming) * 2.0 + width)) +
                         handleFabric +
                         piping
             }
 
             "Autobox Handle Bag" -> {
-                val heming = autoboxHandleBagHemming.value.toDoubleOrNull() ?: 0.0
+                val hemming = autoboxHandleBagHemming.value.toDoubleOrNull() ?: 0.0
                 val handleFabric = autoboxHandleBagHandleFabric.value.toDoubleOrNull() ?: 0.0
                 unitLocals.makingType = autoboxHandleBagMakingType.value.toDoubleOrNull() ?: 0.0
-                unitLocals.heming = heming
+                unitLocals.hemming = hemming
                 unitLocals.handleFabric = handleFabric
-                unitLocals.fabricSqInch = ((height + heming) * width * 2) +
-                        ((gusset + 0.75) * ((height + heming) * 2 + width)) +
+                unitLocals.fabricSqInch = ((height + hemming) * width * 2) +
+                        ((gusset + 0.75) * ((height + hemming) * 2 + width)) +
                         handleFabric
             }
 
             "Autobox D Cut Bag" -> {
-                val heming = autoboxDCutBagHemming.value.toDoubleOrNull() ?: 0.0
+                val hemming = autoboxDCutBagHemming.value.toDoubleOrNull() ?: 0.0
                 unitLocals.makingType = autoboxDCutBagMakingType.value.toDoubleOrNull() ?: 0.0
-                unitLocals.heming = heming
-                unitLocals.fabricSqInch = ((height + heming) * width * 2.0) +
-                        ((gusset + 0.75) * ((height + heming) * 2.0 + width))
+                unitLocals.hemming = hemming
+                unitLocals.fabricSqInch = ((height + hemming) * width * 2.0) +
+                        ((gusset + 0.75) * ((height + hemming) * 2.0 + width))
             }
 
             else -> {

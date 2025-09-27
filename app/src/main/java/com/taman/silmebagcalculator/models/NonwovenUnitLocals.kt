@@ -1,7 +1,7 @@
 package com.taman.silmebagcalculator.models
 
-data class NonwovenUnitLocals(
-    var heming: Double = 0.0,
+data class NonwovenUnitLocal(
+    var hemming: Double = 0.0,
     var handleFabric: Double = 0.0,
     var runner: Double = 0.0,
     var gussetPrint: Double = 0.0,

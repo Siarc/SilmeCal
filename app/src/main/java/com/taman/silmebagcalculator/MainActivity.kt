@@ -9,12 +9,14 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.taman.silmebagcalculator.ui.screens.cotton.CottonScreen
 import com.taman.silmebagcalculator.ui.screens.dashboard.DashboardScreen
+import com.taman.silmebagcalculator.ui.screens.jute.JuteScreen
 import com.taman.silmebagcalculator.ui.screens.login.LoginScreen
 import com.taman.silmebagcalculator.ui.screens.nonwoven.NonWovenScreen
 import com.taman.silmebagcalculator.ui.theme.SilmeBagCalculatorTheme
 import com.taman.silmebagcalculator.utils.CottonScreen
 import com.taman.silmebagcalculator.utils.LoginScreen
 import com.taman.silmebagcalculator.utils.DashboardScreen
+import com.taman.silmebagcalculator.utils.JuteScreen
 import com.taman.silmebagcalculator.utils.NonWovenScreen
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,9 +38,9 @@ class MainActivity : ComponentActivity() {
                     composable<NonWovenScreen> {
                         NonWovenScreen(navController = navController)
                     }
-//                    composable<JuteScreen> {
-//                        JuteScreen(navController = navController)
-//                    }
+                    composable<JuteScreen> {
+                        JuteScreen(navController = navController)
+                    }
                     composable<CottonScreen> {
                         CottonScreen(navController = navController)
                     }

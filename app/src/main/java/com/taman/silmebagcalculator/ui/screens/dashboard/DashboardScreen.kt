@@ -44,6 +44,7 @@ import com.taman.silmebagcalculator.R
 import com.taman.silmebagcalculator.ui.components.BackgroundDroplet
 import com.taman.silmebagcalculator.ui.theme.SilmeBagCalculatorTheme
 import com.taman.silmebagcalculator.utils.CottonScreen
+import com.taman.silmebagcalculator.utils.JuteScreen
 import com.taman.silmebagcalculator.utils.NonWovenScreen
 import org.koin.androidx.compose.koinViewModel
 
@@ -117,8 +118,7 @@ fun DashboardScreen(
                         fc2Drawable = R.drawable.jute_bag,
                         fc2Text = R.string.jute_bag,
                         onClick = {
-                            Toast.makeText(context,
-                                context.getString(R.string.under_development), Toast.LENGTH_SHORT).show()
+                            navController.navigate(JuteScreen)
                         },
                         modifier = Modifier.padding(8.dp)
                     )

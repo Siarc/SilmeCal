@@ -56,6 +56,7 @@ fun DropDownMenuComponent(
             onValueChange = {
 
             },
+            singleLine = true,
             label = { Text(label) },
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
             colors = OutlinedTextFieldDefaults.colors(
