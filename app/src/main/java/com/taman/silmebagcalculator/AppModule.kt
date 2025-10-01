@@ -1,6 +1,7 @@
 package com.taman.silmebagcalculator
 
 import com.google.firebase.auth.FirebaseAuth
+import com.taman.silmebagcalculator.datastore.AuthDataStore
 import com.taman.silmebagcalculator.datastore.CottonDataStore
 import com.taman.silmebagcalculator.datastore.JuteDataStore
 import com.taman.silmebagcalculator.datastore.NonWovenDataStore
@@ -19,10 +20,11 @@ val appModule = module {
     single { NonWovenDataStore(androidContext()) }
     single { JuteDataStore(androidContext()) }
     single { CottonDataStore(androidContext()) }
+    single { AuthDataStore(androidContext()) }
     single { FirebaseAuth.getInstance() }
     single<AuthRepository> { FirebaseAuthRepository(get()) }
     viewModel { DashboardViewModel() }
-    viewModel { LoginScreenViewModel(get()) }
+    viewModel { LoginScreenViewModel(get(), get()) }
     viewModel { NonWovenViewModel(get()) }
     viewModel { JuteViewModel(get()) }
     viewModel { CottonViewModel(get()) }

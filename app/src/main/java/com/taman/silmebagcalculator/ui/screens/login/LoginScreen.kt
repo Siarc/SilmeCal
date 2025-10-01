@@ -1,5 +1,6 @@
 package com.taman.silmebagcalculator.ui.screens.login
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -15,6 +16,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -51,7 +53,7 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Preview(showBackground = true)
 @Composable
-fun LoginScreenPreview(){
+fun LoginScreenPreview() {
     val navController = rememberNavController()
     val fakeViewModel = remember { LoginScreenViewModel(FakeAuthRepository()) }
 
@@ -75,13 +77,14 @@ fun LoginScreen(
                     .fillMaxSize()
                     .padding(horizontal = 30.dp)
             ) {
-                LoginSection(viewModel,navController)
+                LoginSection(viewModel, navController)
 
-                Box(modifier = Modifier
-                    .fillMaxHeight(fraction = 0.8f)
-                    .fillMaxWidth(),
+                Box(
+                    modifier = Modifier
+                        .fillMaxHeight(fraction = 0.8f)
+                        .fillMaxWidth(),
                     contentAlignment = Alignment.BottomCenter
-                ){
+                ) {
 
                     Text(
                         text = buildAnnotatedString {
@@ -92,7 +95,7 @@ fun LoginScreen(
                                     fontFamily = Roboto,
                                     fontWeight = FontWeight.Normal
                                 )
-                            ){
+                            ) {
                                 append("Don't have account?\nRequest your provider for access.")
                             }
                         }
@@ -112,23 +115,54 @@ private fun LoginSection(
     viewModel: LoginScreenViewModel,
     navController: NavHostController
 ) {
+    val context = LocalContext.current
+
+    // Collect stored values
+    val savedEmail by viewModel.savedEmail.collectAsState(initial = "")
+    val savedPassword by viewModel.savedPassword.collectAsState(initial = "")
+    val savedRememberMe by viewModel.savedRememberMe.collectAsState(initial = false)
+
+    Log.d("Rony2", "LoginSection: -> $savedEmail -> $savedPassword -> $savedRememberMe")
 
     var usernameEmail by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    var emailError by remember { mutableStateOf(false) }
+    var rememberMe by remember { mutableStateOf(false) }
 
-    val loginResult by viewModel.loginResult.collectAsState()
+    val emailError by viewModel.emailError.collectAsState()
     val loading by viewModel.loading.collectAsState()
-    val context = LocalContext.current
 
     LoginTextField(
         label = "Username/Email",
         text = usernameEmail,
-        onTextChange = {usernameEmail = it},
+        onTextChange = {
+            usernameEmail = it
+            viewModel.onEmailChanged(it)
+        },
         hasError = emailError
     )
     Spacer(modifier = Modifier.height(15.dp))
-    LoginTextField(label = stringResource(R.string.password), text = password, onTextChange = {password = it}, isPassword = true)
+    LoginTextField(
+        label = stringResource(R.string.password),
+        text = password,
+        onTextChange = { password = it },
+        isPassword = true
+    )
+    Spacer(modifier = Modifier.height(10.dp))
+
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Checkbox(
+            checked = rememberMe,
+            onCheckedChange = { rememberMe = it }
+        )
+        Text(
+            text = "Remember Me",
+            style = MaterialTheme.typography.bodyMedium
+        )
+    }
+
     Spacer(modifier = Modifier.height(20.dp))
 
     Button(
@@ -137,14 +171,9 @@ private fun LoginSection(
             .height(40.dp),
         onClick = onClick@{
 
-            if (!viewModel.isValidEmail(usernameEmail)) {
-                emailError = true
-                return@onClick
-            } else {
-                emailError = false
-            }
+            if (emailError) return@onClick
 
-            viewModel.login(usernameEmail,password)
+            viewModel.login(usernameEmail, password, rememberMe)
         },
         shape = RoundedCornerShape(size = 4.dp)
     ) {
@@ -161,19 +190,18 @@ private fun LoginSection(
         }
     }
 
-    LaunchedEffect(loginResult) {
-        when (loginResult?.success) {
-            true -> {
+    // Update from datastore when flows emit
+    LaunchedEffect(savedEmail) { usernameEmail = savedEmail }
+    LaunchedEffect(savedPassword) { password = savedPassword }
+    LaunchedEffect(savedRememberMe) { rememberMe = savedRememberMe }
+    LaunchedEffect(Unit) {
+        viewModel.loginEvents.collect { event ->
+            if (event.success) {
                 navController.navigate(DashboardScreen) {
                     popUpTo("login") { inclusive = true }
                 }
-            }
-            false -> {
-                Toast.makeText(context, loginResult?.message, Toast.LENGTH_SHORT).show()
-            }
-
-            null -> {
-                // Do nothing or handle null case if needed
+            } else {
+                Toast.makeText(context, event.message, Toast.LENGTH_SHORT).show()
             }
         }
     }
